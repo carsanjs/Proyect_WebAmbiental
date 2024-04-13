@@ -1,0 +1,29 @@
+[type='text'].input-error:focus{
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: #eb2f2f;
+    border-color: #eb2f45;
+    border-radius: 0.25rem;
+    border: none !important;
+    outline: none !important;
+}
+
+select.input-error:focus{
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: #eb2f2f;
+    border-color: #eb2f45;
+    border-radius: 0.25rem;
+    border: none !important;
+    outline: none !important;
+}
+
+textarea.input-error:focus{
+    --tw-ring-offset-width: 0px;
+    --tw-ring-offset-color: #fff;
+    --tw-ring-color: #eb2f2f;
+    border-color: #eb2f45;
+    border-radius: 0.25rem;
+    border: none !important;
+    outline: none !important;
+}

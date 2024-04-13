@@ -1,0 +1,82 @@
+
+:root{
+  --padding: 0;
+  --text_decoracion:none;
+  --display_inline:inline-block;
+  --transition:opacity 0.3s ease-in ;
+  --cursor:pointer;
+  /* --textButton: "IBM Plex Sans",sans-serif;
+  --font_famili: 'Amiri Quran',serif; */
+  --text_Center:Center;
+  --font_large:15pt;
+  --font_medium:13pt;
+  --font_small:11pt;
+  --border_radius:5px;
+  --outline:none;
+  --text_Color:#ffffff;
+  --text_Color_grey:#343A40;
+  --box_shadown:0 1px 0 rgba(0, 0, 0, 0.45);
+  --bacground_buttonV:#2B9D39;
+  --bacground_buttonA:#096EFD;
+  --borde_none:none;
+}
+
+  button{
+    outline: none;
+    overflow: hidden;
+    padding: 0;
+    text-decoration: none;
+  }
+  
+  .btn {
+    transition: var(--transition);
+    padding: 0;
+    border: none;
+    border-radius: var(--border_radius);
+    cursor: var(--cursor);
+    font-weight: 600;
+    font-size: var(--font_medium);
+  }
+  .btn:hover {
+    opacity: 0.7;
+  }
+  .btnA {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 300px;
+    height:45px !important;
+    color: var(--text_Color);
+    box-shadow: var(--box_shadown);
+    background: var(--bacground_buttonA); 
+  }
+
+  .btn-google {
+    color: #080808;
+    background: #fff;
+    border: solid 1px var(--text_Color_grey);
+    padding: 0rem;
+    font-size: 16px;
+    min-width: 300px;
+    min-height:45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0.5px 0.5px 0.7px 1px #302f2f;
+  }
+
+
+  .btn-google img {
+    margin-right: 1rem;
+  }
+
+.btnv{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  height:40px;
+    box-shadow: var(--box_shadown);
+    background: var(--bacground_buttonV);
+    color: var(--text_Color);
+  }

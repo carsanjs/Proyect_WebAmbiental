@@ -1,0 +1,138 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@200&display=swap'); */
+
+:root {
+  /* --text-famili: "IBM Plex Sans", sans-serif; */
+  --color_letras: #343A40;
+  --letras_blue_claro: #0DCAF0;
+  --letras_white: #fff;
+}
+
+.div-centr-skelet{
+  position: relative;
+  margin: 0 auto;
+  width: 350px;
+  height: 360px;
+}
+.login-box {
+  position: relative;
+  margin: 0 auto;
+  width: 350px;
+  height: 360px;
+  /* max-height: 450px;
+  min-height: 449px; */
+  min-width: 348px;
+  background-color: #fff;
+  padding: 0 0 1rem 0;
+  border-radius: 5px;
+  --webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.33);
+  --moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.33);
+  box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.33);
+}
+
+@media (max-width:840px) {
+  .login-box {
+    position: relative;
+    margin: 0 auto;
+  }
+
+  #_sbt {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+  }
+}
+
+.lb-header {
+  position: relative;
+  color: #00415d;
+  margin: 5px 5px 1rem 5px;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  height: 10px;
+}
+
+.dcs {
+  background-color: blue;
+}
+
+.email-login {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.u-form-group {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.u-form-group input[type="email"],
+.u-form-group input[type="password"] {
+  outline: none;
+  overflow: hidden;
+  padding: 0 12px !important;
+  min-width: 300px !important;
+  min-height: 45px !important;
+  text-align: left !important;
+  border-radius: 6px;
+  color: #333;
+  --webkit-transition: all 0.1s linear;
+  --moz-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+  box-sizing: border-box;
+  background: #F0F2F5;
+  border: 1px solid #ddd;
+  /* && .form-item .input:focus {
+    border: 1px solid var(--blue);
+   
+  } */
+}
+
+input.ipt {
+  font-size: 1rem;
+  line-height: 2.2rem;
+}
+
+.forgot-password {
+  width: 100%;
+  text-decoration: none;
+  color: #096EFD;
+  font-size: 15px;
+}
+
+.forgot-sesion {
+  width: 100px;
+  background-color: red;
+  text-decoration: none;
+  color: var(--color_letras);
+  font-size: 0.75rem;
+}
+
+div.c-lb-h {
+  /* font-family: var(--text-famili); */
+  grid-template-columns: 40% 20% 40%;
+  grid-column-gap: 2px;
+  grid-row-gap: 1%;
+  justify-items: stretch;
+  align-items: stretch;
+  margin: 2px 0;
+  font-size: 18px;
+  display: grid;
+}
+
+.fc-g {
+  width: 28px;
+  height: 28px;
+}
+
+.login-wrappe {
+  max-width: 45rem;
+  width: 100%;
+  padding: 1rem 1rem 0 1rem;
+}

@@ -1,0 +1,1 @@
+export const isOnlyLetters = (value: string) => /^[A-Za-z\s_]+$/.test(value);

@@ -1,0 +1,254 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@200&display=swap'); */
+
+:root{
+  --primary-color:#096EFD;
+  --color-fondo :#F0F2F5;
+  /* --textButton: "IBM Plex Sans",sans-serif;
+  */
+}
+
+._dvgmi{
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  opacity: 0.5;
+  background: linear-gradient(310deg, #1171ef, #11cdef);
+  color: #344767;
+  border-radius: none;
+}
+._sc {
+  position: relative;
+  height: 100%;
+  height: 100vh;
+}
+.ps {
+  overflow: hidden !important;
+  overflow-anchor: none;
+  --ms-overflow-style: none;
+  touch-action: auto;
+  --ms-touch-action: auto;
+}
+._u-c{
+  --webkit-flex-direction: column;
+  --ms-flex-direction: column;
+  flex-direction: column;
+  --webkit-box-pack: center;
+  --ms-flex-pack: center;
+  --webkit-justify-content: center;
+  justify-content: center;
+  --webkit-align-items: center;
+  --webkit-box-align: center;
+  --ms-flex-align: center;
+  align-items: center;
+  width: calc(100% - 2rem);
+  height: calc(100vh - 2rem);
+  position: relative;
+  text-align: center;
+  margin: 16px;
+  padding-left: 104px;
+  padding-right: 104px;
+  opacity: 1;
+  background: transparent;
+  color: #344767;
+  border-radius: 0.75rem;
+  overflow: hidden;}
+
+._iclupc {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  background: transparent;
+  color: #344767;
+  border-radius: none;
+}
+
+  .img {
+    width: 100%;
+  }
+
+.Container-1 {
+    min-width: 100%;
+    height:100vh;
+    background-color:var(--color-fondo) ;
+    display: flex;
+    grid-template-columns: 50% 50%;
+    gap: 2px;
+    justify-items: stretch;
+    align-items: stretch;
+ }
+
+ .centered-div{
+  width: 100%;
+  height: 20vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+ }
+
+ .content-boxshadow{
+   position: relative;
+   display: flex;
+   justify-content: flex-end;
+   height: 20vh;
+  background-color: transparent;
+ }
+
+ .div100{
+
+   width: 50vw;
+ }
+
+ /* .showcase{
+  position: relative;
+   background: url('../public/principal_upc.png') no-repeat center center/cover;
+ } */
+
+
+.showcase-content {
+  position:relative;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+}
+
+.showcase-content div h1 {
+  font-size: 3.2rem;
+  line-height: 1.1;
+}
+
+.showcase-content p {
+  text-transform: uppercase;
+  color: #ffffff;
+  font-weight: 400;
+  font-size: 1.9rem;
+  line-height: 1.25;
+}
+
+._dsc{
+  display: none;
+}
+
+
+#_sbt{
+  position: relative;
+  width: 100%;  
+  background-color: var(--color-fondo);
+}
+
+
+div._ptg{
+padding-top:20px;
+}
+
+
+/* ///////////diseño responsivo ///////////////////////////////*/
+
+
+@media (min-width:320px) and (max-width:480px){
+  .content-f{
+    padding:10px;  
+    position: absolute;
+   }
+}
+
+/* @media (max-width:550px) {
+ 
+} */
+@media(min-width:481px) and (max-width:768px){
+  ._dsc ._dct ._dvht{
+    display: block;
+    
+    }
+
+    /* h1 ._dvht{
+      color:red;
+    } */
+}
+
+@media screen and (min-width:769px) and (max-width:1024px){
+  .centered-div{
+    width: 100%;
+    min-height: 20vh;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+   }
+    
+
+}
+
+@media (max-width:840px){
+
+  .content-boxshadow {
+    position: relative;
+    display: flex;
+    justify-content: flex-start; 
+}
+
+ ._u-c{
+  display: none;
+ }
+ 
+  .centered-div{
+    /* border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px; */
+    width: 100vw;
+    min-height: 25vh;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    /* justify-content: center;
+    align-items: center; */
+    background-color: transparent;
+   }
+   
+  .div100{
+    max-height: 100%;
+    min-width:50vw;
+  }
+  .Container-1 {
+    min-width: 100%;
+    height: auto;
+    background-color:var(--color-fondo);
+    display: block;
+    grid-auto-columns: 1fr;
+    grid-template-rows: 10% 50%;
+    row-gap: 1px;
+    justify-items: stretch;
+    align-items: stretch;
+ }
+ 
+ .content-boxshadow {
+  top: 0;
+  height: 25vh;
+}
+
+.showcase{
+  margin: 0;
+  padding: 0;
+  max-height: 25%;
+  background: transparent;
+  position: relative;
+   background-image:none !important;
+ }
+
+ div._ptg{
+  padding-top:0px;
+  }
+
+
+}
+
+/* @media (min-width:1025px) and (max-width:1200px){
+
+} */

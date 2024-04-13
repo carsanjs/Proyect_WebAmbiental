@@ -1,0 +1,142 @@
+--pip install fastapi uvicorn
+
+#uvicorn app:app --reload  //correrlo dentro de la carpeta app
+--pip install beanie
+--pip install pydantic_settings, pydantic
+--pip install python-decouple (config)
+--pip install pydantic[email]
+--pip install passlib
+--pip install python-jose
+--pip install python-multipart
+--pip install bcrypt
+
+
+--pip install pyjwt
+--pip install python-jose[cryptography]
+
+--pip3 install paho-mqtt python-etcd
+--pip install paho-mqtt
+--pip install fastapi-mqtt
+--pip install fastapi-mail
+--pip install fastapi-jwt
+pip install pywebpush
+--pip install fastapi_websocket_rpc
+pip install python-socketio  ---delete (replace ---> pip install fastapi-socketio)
+pip install aiohttp
+---------------------------------------------------------------------------------------------
+**INSTALAR PAQUETES
+#pip install
+**DESINTALAR PAQUETES
+#pip uninstall paquete
+También puedes usar alguna de estas opciones:
+Leer el listado de un fichero "fichero":
+pip uninstall -r fichero
+Dar "sí" automáticamente a las preguntas de confirmación que se formulen:
+pip uninstall -y
+O combinarlas, claro:
+pip uninstall -y -r fichero
+_______________________________________________________________________
+## para ver la lista de bibliotecas instaladas con sus repectivas versiones
+--pip list
+**ahora pegare las versiones la cual estoy trabajando:{
+annotated-types   0.6.0       
+anyio             4.2.0       
+bcrypt            4.1.2       
+beanie            1.24.0      
+cffi              1.16.0      
+click             8.1.7       
+colorama          0.4.6       
+cryptography      41.0.7      
+dnspython         2.4.2       
+ecdsa             0.18.0      
+email-validator   2.1.0.post1 
+fastapi           0.108.0
+h11               0.14.0
+idna              3.6
+lazy-model        0.2.0
+motor             3.3.2
+passlib           1.7.4
+pip               22.3.1
+pyasn1            0.5.1
+pycparser         2.21
+pydantic          2.5.3
+pydantic_core     2.14.6
+pydantic-settings 2.1.0
+PyJWT             2.8.0
+pymongo           4.6.1
+python-decouple   3.8
+python-dotenv     1.0.0
+python-jose       3.3.0
+python-multipart  0.0.6
+rsa               4.9
+setuptools        65.5.0
+six               1.16.0
+sniffio           1.3.0
+starlette         0.32.0.post1
+toml              0.10.2
+typing_extensions 4.9.0
+uvicorn           0.25.0
+}
+el unico problema es con passlib de bcrypt, lo pasare a la versionde 4.0.1
+https://github.com/pyca/bcrypt/issues/684
+---------------------------------------------------------------------------
+Backend autenticacion------
+Transporte + Estrategia = Backend de autenticación¶
+Un backend de autenticación se compone de dos partes:
+
+Transporte¶¶¶
+Administra cómo se llevará el token a través de la solicitud. Actualmente ofrecemos dos métodos:
+
+Portador
+El token se enviará a través de un encabezado.Authorization: Bearer
+
+Pros y contras
+
+✅ Fácil de leer y configurar en todas las solicitudes.
+❌ Debe almacenarse manualmente en algún lugar del cliente.
+➡️ Utilícelo si desea implementar una aplicación móvil o una API REST pura.
+
+Galleta
+El token se enviará a través de una cookie.
+
+Pros y contras
+
+✅ Almacenado automáticamente y enviado de forma segura por los navegadores web en cada solicitud.
+✅ Los navegadores web lo eliminan automáticamente al caducar.
+❌ Necesita una protección CSRF para una máxima seguridad.
+❌ Es más difícil trabajar con él fuera de un navegador, como una aplicación móvil o un servidor.
+➡️ Utilízalo si quieres implementar un frontend web.
+
+Estrategia¶¶¶¶
+Administra cómo se genera y protege el token. Actualmente ofrecemos tres métodos:
+
+JWT
+El token es autónomo en un token web JSON.
+
+Pros y contras
+
+✅ Autónomo: no necesita almacenarse en una base de datos.
+❌ No se puede invalidar en el lado del servidor: es válido hasta que caduque.
+➡️ Úselo si desea ponerse en marcha rápidamente.
+
+Base de datos
+El token se almacena en una tabla (o colección) de la base de datos.
+
+Pros y contras
+
+✅ Seguro y eficaz.
+✅ Los tokens se pueden invalidar en el lado del servidor quitándolos de la base de datos.
+✅ Altamente personalizable: añade tus propios campos, crea una API para recuperar las sesiones activas de tus usuarios, etc.
+❌ La configuración es un poco más compleja.
+➡️ Utilízalo si quieres la máxima flexibilidad en la gestión de tus tokens.
+
+Redis
+El token se almacena en un almacén de claves de Redis.
+
+Pros y contras
+
+✅ Seguro y eficaz.
+✅ Los tokens se pueden invalidar en el lado del servidor eliminándolos de Redis.
+❌ Se necesita un servidor Redis.
+➡️ Úselo si desea obtener el máximo rendimiento y poder invalidar tokens.
+ docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' df0 (direcion ip del contenedor de docker)

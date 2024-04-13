@@ -1,0 +1,80 @@
+# async def save_sensor_data(payload):
+#     try:
+#         if isinstance(payload, bytes):
+#             data = payload.decode()
+#         elif isinstance(payload, dict):
+#             data = json.dumps(payload)
+#         else:
+#             data = str(payload)
+#         data_dict = json.loads(data)
+#         sensor_id = UUID(data_dict.get('sensor_id'))
+#         try:
+#             # Verificar si el dato ya existe en la base de datos (deduplicación)
+#             existing_sensor_data = await Sensors.find_one({"id_sensor": sensor_id})
+#             if existing_sensor_data and existing_sensor_data.data == data_dict:
+#                 print("Duplicated sensor data. Skipping update.")
+#                 return
+
+#             # Actualizar el modelo Sensor
+#             await Sensors.update_one(
+#                 {"id_sensor": sensor_id},
+#                 {"$set": {"data": data_dict}}
+#             )
+
+#             # Obtener el ID del dispositivo y actualizar el modelo Device
+#             sensor = await Sensors.find_one({"sensors": sensor_id})
+#             if sensor:
+#                 id_device_ = sensor.device_id
+#                 await DeviceService.update_device_data(id_device_, data_dict)
+
+#                 # Obtener el ID del salón y actualizar el modelo Salon
+#                 device = await DeviceService.get_lroom_by_id(id_device_)
+#                 if device:
+#                     salon_id = device.salon_id
+#                     await LivingRoom.update_one(
+#                         {"id_lroom": salon_id},
+#                         {"$set": {"inf_device": device}}
+#                     )
+#                 else:
+#                     print(f"Device with id {id_device_} not found.")
+#             else:
+#                 print(f"Sensor with id {sensor_id} not found.")
+#         except Exception as e:
+#             print(f"Error saving data to MongoDB: {e}")
+#     except Exception as e:
+#         print(f"Error processing sensor data: {e}")
+
+# async def save_sensor_data(payload):
+#     try:
+#         if isinstance(payload, bytes):
+#             data = payload.decode()
+#         elif isinstance(payload, dict):
+#             data = json.dumps(payload)
+#         else:
+#             data = str(payload)
+#         data_dict = json.loads(data)
+#         sensor_id = UUID(data_dict.get('sensor_id'))
+#         try:
+#             # Verificar si el dato ya existe en la base de datos (deduplicación)
+#             existing_sensor_data = await Sensors.find_one({"id_sensor": sensor_id})
+#             if existing_sensor_data and existing_sensor_data.data == data_dict:
+#                 print("Duplicated sensor data. Skipping update.")
+#                 return
+
+#             # Actualizar el modelo Sensor
+#             await Sensors.update_one(
+#                 {"id_sensor": sensor_id},
+#                 {"$set": {"data": data_dict}}
+#             )
+
+#             # Obtener el ID del dispositivo y actualizar el modelo Device
+#             sensor = await Sensors.find_one({"id_sensor": sensor_id})
+#             if sensor:
+#                 id_device_ = sensor.device_id
+#                 await DeviceService.update_device_data(id_device_, data_dict)
+#             else:
+#                 print(f"Sensor with id {sensor_id} not found.")
+#         except Exception as e:
+#             print(f"Error saving data to MongoDB: {e}")
+#     except Exception as e:
+#         print(f"Error processing sensor data: {e}")

@@ -1,0 +1,44 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@200&display=swap'); */
+
+
+:root {
+  --transition: opacity 0.3s ease-in;
+  --cursor: pointer;
+  /* --textButton: "IBM Plex Sans",sans-serif; */
+  --bacground_buttonA: #096EFD;
+  --font_medium: 13pt;
+  --border_radius: 5px;
+}
+
+button.btn1.medium {
+  background: #d3e3fd;
+  outline: none;
+  overflow: hidden;
+  padding: 0;
+  cursor: var(--cursor);
+  /* font-family: var(--textButton); */
+  border-radius: var(--border_radius);
+  text-decoration: none;
+}
+
+.btn1 {
+  position: relative;
+  padding: 0;
+  margin: 0 1rem 0 1rem;
+  color: #080808;
+  font-weight: 600;
+  font-size: var(--font_medium);
+}
+
+button.btn1:hover {
+  opacity: 0.8;
+  color: aliceblue;
+
+  background: #096EFD;
+}
+
+.medium {
+  min-width: 120px;
+  min-height: 38px;
+
+}

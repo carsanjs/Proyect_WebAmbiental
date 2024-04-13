@@ -1,0 +1,49 @@
+
+*{
+  text-align: center;
+  
+}
+
+.input-group{
+  width: 60%;
+}
+
+.card-meteorology{
+  max-width: 80vw;
+  max-height: 60vh;
+}
+
+.card-title{
+  position: absolute;
+  padding: 20px;
+}
+
+.card-date{
+  position: absolute;
+  padding-left: 20px;
+  margin-top: 60px;
+}
+
+.card-temp{
+  position: absolute;
+  padding-left: 20px;
+  margin-top: 260px;
+  font-size: 50px;
+}
+
+.card-desc{
+  position: absolute;
+  padding-left: 20px;
+  margin-top: 320px;
+}
+
+.cd{
+ max-width: 50% !important;
+}
+
+img{
+  max-width: 100%;
+}
+.cdd{
+  width:100% !important;  
+}
