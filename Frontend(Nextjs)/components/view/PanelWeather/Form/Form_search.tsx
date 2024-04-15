@@ -2,34 +2,29 @@ import React, { useState, FormEvent } from "react";
 import "./index.css";
 
 interface FormProps {
-  onFormSubmit: (city: string) => void;
+  onFormSubmit: (city: string) => void; 
 }
 
-const Form: React.FC<FormProps> = ({ onFormSubmit }) => {
-  const [city, setCity] = useState("");
-
+const Form: React.FC<FormProps> = ({ onFormSubmit}) => {
+  const [city, setCity] = useState<string>("");
+  console.log(city)
   const [loading, setLoading] = useState(false);
 
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Evitar que se recargue la página al enviar el formulario
-    if(city === "" || !city) return;
-
+    console.log(city)
+    e.preventDefault();
+    if(city === "") return;
     onFormSubmit(city);
-    // if (city.trim() !== "") {
-    //   setLoading(true);
-    //   setTimeout(() => {
-    //     onFormSubmit(city);
-    //     setLoading(false);
-    //   }, 1000);
-    // }
+
   };
+  console.log(handleSubmit)
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   setCity(e.target.value); 
-  //   onFormSubmit(e.target.value);
-  // };
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  setCity(e.target.value)
+};
 
+console.log(handleChange)
   return (
     <div className="w-full container">
       <form className=" w-full flex items-center" onSubmit={handleSubmit} method="POST">
@@ -68,7 +63,7 @@ const Form: React.FC<FormProps> = ({ onFormSubmit }) => {
             value={city}
             placeholder="Escriba para buscar ciudad..."
             className="iptcty w-full px-4 py-2 rounded-lg border focus:outline-none focus:border-none focus:ring-0 bg-transparent pr-4 pl-9"
-            onChange={(e) =>setCity(e.target.value)}
+            onChange={handleChange}
           />
         </div>
         {loading ? <span>Cargando...</span> : null}

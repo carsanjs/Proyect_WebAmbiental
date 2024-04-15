@@ -8,14 +8,6 @@ body {
   overflow: none !important;
 } 
 
-
-/* div.landing-page header div.container-i a h1.logo {
-  font-weight: 900;
-  font-size: 2rem;
-  line-height: 1.2;
-} */
-
-
 ul {
   list-style: none;
   padding: 0;
@@ -155,13 +147,6 @@ ul {
     color: #5d5d5d;
   }
 
-  /* .landing-page .content-t .info p {
-    margin: 0;
-    line-height: 1.6;
-    font-size: 15px;
-    color: #5d5d5d;
-  } */
-
   strong.vApp {
     font-size: 16px;
     font-weight: bold !important;
@@ -187,8 +172,6 @@ ul {
   overflow: none;
   font-size: 44px;
 }
-
-
 
 .landing-page .content-t .info button {
   border: 0;

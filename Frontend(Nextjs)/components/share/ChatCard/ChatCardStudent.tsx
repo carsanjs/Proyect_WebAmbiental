@@ -10,12 +10,10 @@ const ChatCardStudents = () => {
    
     const fetchStudents = async () => {
       try {
-        const response = await axiosInstance.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/users/users`
-        );
+        const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/users/`);
         setStudents(response.data);
       } catch (error) {
-        console.error("Error fetching classrooms:", error);
+        console.error("Error fetching users:", error);
       } finally {
         console.log("finally");
       }

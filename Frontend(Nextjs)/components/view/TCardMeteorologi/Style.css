@@ -175,7 +175,12 @@ box-shadow: inset 0px -142px 79px -39px rgba(0,0,0,0.99);
   border-bottom-right-radius: 20px;
   /* --webkit-box-shadow: inset 0px -142px 79px -39px rgba(0,0,0,0.90);
 --moz-box-shadow: inset 0px -142px 79px -39px rgba(202, 29, 29, 0.9); */
-box-shadow: inset 0px -142px 79px -39px rgba(0, 0, 0, 0.685);
+/* box-shadow: inset 0px -142px 79px -39px rgba(0, 0, 0, 0.685); */
+/* background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 2%, rgba(0, 0, 0, 0.685) 30%); */
+/* background: linear-gradient(transparent 1%, black); */
+background: linear-gradient(360deg, black 50%, transparent 100%);
+  /* Sombra en la parte superior */
+  /* box-shadow: inset 0px -10px 20px rgba(0, 0, 0, 0.65); */
   padding:1rem 0 0 1.5rem;
   margin: 0;
   height: 35%;

@@ -5,6 +5,7 @@ import ReloadSkeleto from "../../components/sckeletos/Vambientapp";
 import Button from "../../components/ui/Button";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { IconsFarm, IconsGithub} from "../../components/ui/Icons/Icons";
 
 import Arduino from "../../public/lenguajes/arudino.png";
 import Nextjs from "../../public/lenguajes/descargar.png";
@@ -14,10 +15,9 @@ import Mongodb from "../../public/lenguajes/mongo1.png";
 import Mosquitto from "../../public/lenguajes/mosquitto.png";
 import Github from "../../public/Logos/github.png";
 
-
 import { VambientalAppTitle } from "../../components/share/VambientalTitle/Vambiental";
 
-export default function Home() {  
+export default function Home() {
   const [isLoading, setIsloading] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
   const technology = [
@@ -63,15 +63,13 @@ export default function Home() {
       <div className="landing-page">
         <header>
           <div className="container-i">
-            <VambientalAppTitle/>
+            <VambientalAppTitle />
             <ul className="links">
-              <li>
-                <a href="#">
-                  <span>
-                    <Image src={Github} alt="github" width={30} height={30} />{" "}
-                  </span>
-                </a>
-              </li>
+           <IconsGithub
+           alt="Github"
+           src={Github}
+           href="#"
+           />
               <Link href="/auth/signup">
                 <li>Regístrate</li>
               </Link>
@@ -86,8 +84,9 @@ export default function Home() {
                 <span className="text-primary">.</span>
               </h1>
               <p className="ttx">
-                Bienvenido al proyecto de grado <strong className="vApp">Vambiental App</strong>.{" "}
-                En este emocionante proyecto, hemos combinado tecnologías como {" "}
+                Bienvenido al proyecto de grado{" "}
+                <strong className="vApp">Vambiental App</strong>. En este
+                emocionante proyecto, hemos combinado tecnologías como{" "}
                 <strong className="text-primary">{textTechnology}</strong>
               </p>
               <p className="ttx">
@@ -112,90 +111,39 @@ export default function Home() {
                   />
                 )}
               </div>
-              <div className="flex gap-5 py-4 px-4">         
-            <ul className="icons">
-                <li>
-                  <a
-                    href="#"
-                    className=""
-                  >
-                    <span className="label">
-                    <Image
+              <div className="flex gap-5 py-4 px-4">
+                <ul className="icons">
+                  <IconsFarm
+                    href="https://www.arduino.cc/en/software"
                     src={Arduino}
                     alt="Arduino"
-                    objectFit="cover"
-                    height={80}
-                    />
-                    </span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className=""
-                  >
-                    <span className="label"><Image
+                  />
+                  <IconsFarm
+                    href="https://mosquitto.org/"
                     src={Mosquitto}
-                    objectFit="cover"
                     alt="Mosquitto"
-                    height={80}
-                    /></span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className=""
-                  >
-                    <span className="label"><Image
+                  />
+                  <IconsFarm
+                    href="https://www.docker.com/get-started/"
                     src={Docker}
-                    objectFit="cover"
                     alt="Docker"
-                    height={80}
-                    /></span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className=""
-                  >
-                    <span className="label"><Image
+                  />
+                  <IconsFarm
+                    href="https://fastapi.tiangolo.com/"
                     src={Fastapi}
                     alt="Fastapi"
-                    objectFit="cover"
-                    height={80}
-                    /></span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className=""
-                  >
-                    <span className="label"><Image
+                  />
+                  <IconsFarm
+                    href="https://www.mongodb.com/es"
                     src={Mongodb}
                     alt="Mongodb"
-                    objectFit="cover"
-                    height={80}
-                    /></span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="icon style2 fa fa-codepen"
-                  >
-                    <span className="label">
-                    <Image
+                  />
+                  <IconsFarm
+                    href="https://nextjs.org/"
                     src={Nextjs}
                     alt="Nextjs"
-                    objectFit="cover"
-                     height={80}
-                    /></span>
-                  </a>
-                </li>
-              </ul>
+                  />
+                </ul>
               </div>
             </div>
           </div>

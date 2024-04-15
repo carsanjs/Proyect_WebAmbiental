@@ -2,9 +2,9 @@ import "./Style.css";
 import getRandomLightColor from "../../../hooks/RandomColor";
 import { useState, useEffect } from "react";
 import TinderCard from "react-tinder-card";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+// import Slider from "react-slick";
+// import "slick-carousel/slick/slick.css";
+// import "slick-carousel/slick/slick-theme.css";
 import CardsSmall from "./cards_small/Cards_Small";
 import ButtonRR from "../../ui/Button/ButtonesCard/ButtonReload&Right";
 import {
@@ -18,16 +18,19 @@ import Sensor from "../../../src/app/validation/Interface/Sensors";
 import Classroom from "../../../src/app/validation/Interface/Clasrroom";
 
 function VappCard() {
-  interface CustomArrowProps {
-    style?: React.CSSProperties;
-    onClick?: React.MouseEventHandler<HTMLDivElement>;
-  }
+
+  // interface CustomArrowProps {
+  //   style?: React.CSSProperties;
+  //   onClick?: React.MouseEventHandler<HTMLDivElement>;
+  // }
 
   const dia: string = obtenerDiaSemana();
   const semana: string = obtenerDiaMesYMes();
   const [hora, setHora] = useState(obtenerHora());
   const [roomColors, setRoomColors] = useState<string[]>([]);
 
+  // const[eventcards,setEventCards] = useState<[] | null>([]);
+   
   const [sensors, setSensors] = useState<Sensor[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [roomNumberMap, setRoomNumberMap] = useState<Classroom[]>([]);
@@ -39,7 +42,7 @@ function VappCard() {
   useEffect(() => {
     const intervalId = setInterval(() => {
       setHora(obtenerHora());
-    }, 100);
+    }, 500);
     return () => clearInterval(intervalId);
   }, []);
 
@@ -90,22 +93,31 @@ function VappCard() {
     return () => clearInterval(intervalId);
   }, []);
 
-  const onSwipe = (direction: string) => {
-    console.log(`You swiped: ${direction}`);
-    // Implementa la lógica adicional según sea necesario
+  const onSwipe = (direction: string, nameToDelete:number) => {
+    console.log(`You swiped: ${direction} is name del room ${nameToDelete}`);  
+   
+  //   const elementArray = []
+  //   const firstElement = roomNumberMap[1];
+  //   console.log(firstElement,"first element: ")
+  //  const deleteItem = roomNumberMap.shift();
+  //  console.log(deleteItem, "deleteItem");
+  //  elementArray.push(deleteItem?.id_lroom);
+
+  //  console.log(elementArray);
   };
 
-  const onCardLeftScreen = (name: string, direction: string) => {
-    console.log(`${name} left the screen in ${direction} direction`);
-
+  const onCardLeftScreen = (name: string) => {
+    console.log(`${name} left the screen`);
     // Volvemos a agregar la tarjeta al final de la cola
-    setSensors((prevCards) => [...prevCards, prevCards.shift()]);
+    // setEventCards((prevCards) =>({...prevCards,[]:name.replace}) )
+    // setSensors((prevCards) => [...prevCards, prevCards.shift()]);
 
     // Incrementamos el índice de la tarjeta actual
     setCurrentCardIndex((prevIndex) => prevIndex + 1);
     // Habilitamos el deslizamiento en la nueva tarjeta
     setSwipeEnabled(true);
   };
+
   const handlePassButtonClick = () => {
     try {
       const sensor = sensors[currentCardIndex];
@@ -123,33 +135,24 @@ function VappCard() {
   };
   const handleReloadButtonClick = () => {
     try {
-      // Clonamos la matriz de sensores
-      const updatedSensors = [...sensors];
-      // Actualizamos los datos del sensor actual
-      updatedSensors[currentCardIndex] = {
-        ...updatedSensors[currentCardIndex] /* Nuevos datos */,
-      };
-      // Actualizamos el estado con la nueva matriz de sensores
-      setSensors(updatedSensors);
-      console.log(updatedSensors);
-      console.log("Recargando");
+      const sensor = sensors[currentCardIndex];
+      if (sensor) {
+        // Mover la tarjeta actual al final de la cola
+        const updatedSensors = [...sensors];
+        updatedSensors.push(updatedSensors.splice(currentCardIndex, 1)[0]);
+        setSensors(updatedSensors);
+        setCurrentCardIndex((prevIndex) => (prevIndex + 1) % updatedSensors.length);
+        console.log("Deslizando hacia la derecha");
+      }
     } catch (error) {
-      console.error("Error al manejar la recarga:", error);
+      console.error("Error al manejar la tarjeta:", error);
     }
   };
 
-  const swipeHandlers = swipeEnabled
-    ? {
-        onSwipe: (dir: string) => onSwipe(dir),
-        onCardLeftScreen: (dir: string) =>
-          onCardLeftScreen(sensors[currentCardIndex].name, dir),
-        preventSwipe: ["up", "down"],
-      }
-    : {
-        preventSwipe: [],
-      };
   return (
-    <div className="tinderCards">
+
+
+<div className="tinderCards">
       <div className="tinderCards__cardContainer">
         <>
           {roomNumberMap.map((roomNumber, index) => {
@@ -169,12 +172,12 @@ function VappCard() {
 
             return (
               <TinderCard
-                className="swipe"
+                flickOnSwipe={true}
+                className="swipe pressable"
                 key={roomNumber.id_lroom}
-                {...swipeHandlers}
-                style={{
-                  display: index === currentCardIndex ? "block" : "none",
-                }}
+                preventSwipe={["up", "down"]}
+                onSwipe={(dir) => onSwipe(dir, roomNumber.number_lroom)}
+                onCardLeftScreen={() => onCardLeftScreen(roomNumber.name_lroom)}
               >
                 <div
                   className={`card room-${roomNumber.number_lroom} space-fbox`}
@@ -252,30 +255,6 @@ function VappCard() {
                       </div>
                       ))}
                       <div className="table w-full ...">
-                        {/* <div className="table-header-group ...">
-                          {mainSensor.data &&
-                          Object.entries(mainSensor.data).length > 0 ? (
-                            Object.entries(devices).map(
-                              ([key, value]) =>
-                                key !== "sensor_id" && (
-                                  <div className="table-row-group">
-                                    <div className="table-row" key={key}>
-                                      <div className="table-cell ...">
-                                        <h1 className="_tg">{key}</h1>
-                                      </div>
-                                      <div className="table-cell ...">
-                                        <span className="_spatg">{value}</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                )
-                            )
-                          ) : (
-                            <div className="table-row">
-                              <div className="table-cell ...">Nah</div>
-                            </div>
-                          )}
-                        </div> */}
                       </div>
                     </div>
                   ) : (
