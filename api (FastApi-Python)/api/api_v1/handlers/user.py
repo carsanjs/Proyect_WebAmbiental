@@ -17,7 +17,7 @@ async def creating_user(User: UserAuth):
     if User.carrera not in ("Ingeniería Sistemas","Ingeniería Ambiental","Ingeniería Agroindustrial","Contaduría Publica", "Administración de Empresa","Tecnología Agroindustrial"):
         raise HTTPException(
             status_code=400,
-            detail="CAREER_IS_REQUIRED",
+            detail="CAREER_IS_REQUIRED",    
         )
     if not User.passw:
         raise HTTPException(

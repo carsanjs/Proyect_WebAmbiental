@@ -1,0 +1,14 @@
+
+
+a.btnElipsis {
+outline: none;
+text-decoration: none;
+width: 20px;
+height: 30px;
+}
+
+
+button.btnback svg{
+    height: 35px;
+    width: 35px;
+}

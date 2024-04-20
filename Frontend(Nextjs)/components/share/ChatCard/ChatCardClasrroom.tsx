@@ -30,7 +30,7 @@ const ChatCardClasrroom = () => {
     return () => {
       // Cancela las solicitudes pendientes si es necesario
     };
-  }, [classrooms]);
+  }, []);
 
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
@@ -39,7 +39,7 @@ const ChatCardClasrroom = () => {
       </h4>
       <div>
       {classrooms.length === 0 ? (
-          <span className="cero-device text-sm text-black-500 px-7.5 dark:text-gray-400">
+          <span className="cero-device text-sm px-7.5 dark:text-gray-400">
             No hay Salones registrados
           </span>
         ) : (

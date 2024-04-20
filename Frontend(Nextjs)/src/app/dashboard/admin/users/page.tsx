@@ -13,6 +13,7 @@ import Inputs from "@/app/validation/Interface/Studen";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {userRegisterAdmin,mappedCarreraStatus } from "../../../validation/schemas/userRegisterAdmin_Schema";
+import { useRouter } from "next/navigation";
 
 export default function Users() {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
@@ -113,6 +114,7 @@ export default function Users() {
                     <input
                       required
                       type="text"
+                      autoComplete="off"
                       {...register("nombre")}
                       placeholder="Enter your full name"
                       className={`${errors.nombre?.message ?"input-error w-full": ""} w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary`}
@@ -126,6 +128,7 @@ export default function Users() {
                     <input
                       {...register("correo")}
                       type="email"
+                      autoComplete="off"
                       placeholder="Enter your email address"
                       className={`${errors.correo?.message ?"input-error w-full": ""} w-full text-left rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary`}
                     />
@@ -157,6 +160,7 @@ export default function Users() {
                       required
                       {...register("passw")}
                       type="password"
+                      autoComplete="current-password"
                       placeholder="Enter password"
                       className={`${errors.passw?.message ?"input-error w-full": ""} w-full text-left rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary`}
                     />

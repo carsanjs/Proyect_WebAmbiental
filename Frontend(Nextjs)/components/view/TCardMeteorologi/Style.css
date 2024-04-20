@@ -303,6 +303,24 @@ button{
   line-height:1em;
 }
 
+button.btncancel{
+  border-radius: 0;
+  padding-top: 1rem;
+width: 30px;
+height: 40px;
+  background-color: red;
+}
+
+button.crudbtn, a.crudbtn{
+  display:block;
+  overflow:hidden;
+  max-width: 80%;
+  max-height: 80%;
+  width: auto;
+  height: auto;
+  background-color: transparent; 
+}
+
 button._dbtncircle-blue{
   border:1px solid blue;
 }

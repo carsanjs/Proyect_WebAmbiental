@@ -66,6 +66,7 @@ export default function Signin() {
               <div className="u-form-group">
                 <input
                   id="email"
+                  autoComplete="username"
                   title="Campo Obligatorio"
                   max={40}
                   min={4}
@@ -88,6 +89,7 @@ export default function Signin() {
                   })}
                   className="ipt"
                   type="password"
+                  autoComplete="current-password"
                   placeholder="Contraseña"
                 />
               </div>

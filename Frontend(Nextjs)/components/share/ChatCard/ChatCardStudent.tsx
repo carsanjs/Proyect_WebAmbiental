@@ -1,39 +1,76 @@
-import { useState, useEffect } from "react";
-import axiosInstance from "@/services/axios";
+import { useState, useEffect, useCallback } from "react";
+import {fetchStudents} from "@/services/axios";
 import PostRegisterStudent from "@/app/validation/Interface/Studen";
 import {formatDate} from "@/components/functions/Convert";
+import Ellipsis from "../../ui/Button/ButtonEllipsis/ButtonEllipsis";
+import Modal from "../Modal/Modal";
+import Table from "../Table/table"
+import { useRouter } from "next/navigation";
+
 
 const ChatCardStudents = () => {
+  const router = useRouter()
+  const [showModal, setShowModal] = useState<boolean>(false)
   const [students, setStudents] = useState<PostRegisterStudent[]>([]);
+  const [loading, setLoading] = useState(true);
+  const fetchStudentsData = async () => {
+    try {
+      let studentsdata = await fetchStudents();
+      if(studentsdata) {
+        setStudents(studentsdata);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.error("Error fetching students:", error);
+    }
+  }
 
   useEffect(() => {
-   
-    const fetchStudents = async () => {
-      try {
-        const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/users/`);
-        setStudents(response.data);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-      } finally {
-        console.log("finally");
-      }
-    };
-    
+    fetchStudentsData();
+  }, []);
 
-      fetchStudents();
 
-    return () => {
+  // const abrirModal = () => {
+  //   router.push("/dashboard/admin/users/detail")
+  //   setShowModal(true);
+  // };
 
-      //se Cancelan las solicitudes pendientes si es necesario
-    };
-  }, [setStudents]);
-
+  // const cerrarModal = () => {
+  //   setShowModal(false);
+  // };
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
-      <h4 className="mb-6 px-7.5 text-xl font-semibold text-black dark:text-white">
-        Estudiantes Registrados
-      </h4>
+  
+    <div>
+    {loading ? ( 
+      <p>Cargando estudiantes...</p>
+    ) : (
+      <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+      
+      <div className="flex justify-around">
+        <h4 className="px-7.5 text-xl font-semibold text-black dark:text-white">
+          Usuarios Registrados
+        </h4>
+        <Ellipsis 
+        to="/dashboard/admin/users/detail"
+        />
+      </div>
+      {/* {showModal && (
+        <Modal onClose={cerrarModal}
+        children={
+        <Table
+        
+        />}
+        >
+
+        </Modal>
+      )} */}
       <div>
+      {students.length === 0 ? (
+          <span className="cero-device text-sm px-7.5 dark:text-gray-400">
+            No hay Usuarios registrados
+          </span>
+        ) : (
+        <>
         {students.map((student, index) => (
           <div
             key={index}
@@ -60,8 +97,13 @@ const ChatCardStudents = () => {
             </div>
           </div>
         ))}
+        </>
+        )}
       </div>
     </div>
+    )}
+  </div>
+  
   );
 };
 

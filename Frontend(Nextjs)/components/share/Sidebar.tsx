@@ -13,7 +13,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
   const location = useLocation();
   const { pathname } = location;
   const [prevLocation, setPrevLocation] = useState('');
-  
+
   const trigger = useRef<any>(null);
   const sidebar = useRef<any>(null);
 
@@ -36,7 +36,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     };
     document.addEventListener('click', clickHandler);
     return () => document.removeEventListener('click', clickHandler);
-  });
+  },[]);
 
   // close if the esc key is pressed
   useEffect(() => {
@@ -46,7 +46,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     };
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
-  });
+  },[]);
 
   useEffect(() => {
     localStorage.setItem('sidebar-expanded', sidebarExpanded.toString());
@@ -67,7 +67,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
         <NavLink to="/dashboard/admin">
-          <Image 
+          <Image
             width={323}
             height={110}
             src={Logo} alt="Logo" />
@@ -209,18 +209,19 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </ul>
           </div>
 
-          <div>
-            <h3 className="mb-4 ml-4 text-left text-sm font-semibold text-bodydark2">
+            {/* <!-- Others Group --> */}
+            <div>
+            <h3 className="mb-4 ml-4 text-sm text-left font-semibold text-bodydark2">
               OTROS
             </h3>
 
             <ul className="mb-6 flex flex-col gap-1.5">
-              {/* <!-- Menu Item Chart --> */}
+              {/* <!-- Menu Item Histoy --> */}
               <li>
                 <NavLink
-                  to="/dashboard/admin/chart"
+                  to="/dashboard/admin/history"
                   className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-                    pathname.includes('/dashboard/admin/chart') && 'bg-graydark dark:bg-meta-4'
+                    pathname.includes('history') && 'bg-graydark dark:bg-meta-4'
                   }`}
                 >
                   <svg
@@ -252,10 +253,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                       </clipPath>
                     </defs>
                   </svg>
-                  Chart
+                  Historial
                 </NavLink>
               </li>
-              {/* <!-- Menu Item Chart --> */}
+              {/* <!-- Menu Item History --> */}
             </ul>
           </div>
         </nav>

@@ -78,12 +78,6 @@ const Card: React.FC<CardProps> = ({
                 </div>
               </div>
             </div>
-            {/* <div
-                className="_infimgg"
-                style={{
-                  backgroundImage: `url(https://images.pexels.com/photos/10817264/pexels-photo-10817264.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)`,
-                }}
-              ></div> */}
           </div>
 
           <div className="flex-1 w-full dwgrid">

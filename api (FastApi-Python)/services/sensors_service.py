@@ -162,6 +162,39 @@ class SensorsService:
             raise HTTPException(status_code=500, detail=str(e))
         
     @staticmethod
+    async def detailhistory(id_history: UUID):
+        all_detail = await SensorDataHistory.find_one(
+            SensorDataHistory.id_history == id_history
+        )
+        return all_detail
+    
+    @staticmethod
+    async def delete_history(id_history: UUID) -> None:
+        history = await SensorsService.detailhistory(id_history)
+        try:
+            if history:
+                await history.delete()
+                return None
+        except HTTPException as exc:
+            return exc
+        
+    @staticmethod
+    async def delete_all_history(user: Persona) -> None:
+        if user.rol != "admin":
+            raise HTTPException(
+            status_code=403,
+            detail="No tienes permiso de administrador"
+        )
+        try:
+            return await SensorDataHistory.delete_all();
+        except HTTPException as exc:
+             raise HTTPException(
+            status_code=500,
+            detail=f"No se pudo eliminar: {str(exc)}"
+        )
+    
+        
+    @staticmethod
     async def list_history(current_user:Persona) -> List[SensorDataHistory]:
         try:
             all_history = await SensorDataHistory.find().to_list()

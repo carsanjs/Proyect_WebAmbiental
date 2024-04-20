@@ -73,15 +73,6 @@ app.add_middleware(
 @app.middleware("http")
 async def authenticate_time_header(request: Request, call_next):
     session_id = has_session_id = request.cookies.get("fast-auth-session")
-    # real_ip = request.headers.get("X-Real-IP")
-    # if real_ip:
-    #     # Registra la dirección IP en tus logs utilizando el logger personalizado
-    #     logger.info(f"IP del cliente: {real_ip}")
-    # else:
-    #     host_ip = request.client.host
-    #     # Registra la dirección IP en tus logs utilizando el logger personalizado
-    #     logger.info(f"IP del cliente (usando host): {host_ip}")
-    # response = await call_next(request)
     start_time = time.time()
     if session_id is None:
         session_id = str(uuid.uuid4())

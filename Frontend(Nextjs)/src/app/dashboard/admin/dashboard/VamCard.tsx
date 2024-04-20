@@ -1,6 +1,6 @@
 "use client";
 import WeatherPanel from "../../../../../components/view/PanelWeather/WeatherPanel";
-import { useState } from "react";
+import { useState ,FormEvent} from "react";
 import VappCard from "../../../../../components/view/TCardMeteorologi/VappCard";
 import Header from "../../../../../components/share/Header";
 
@@ -9,13 +9,15 @@ const Page = () => {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const [city, setCity] = useState<string>("");
 
-  const handleFormSubmit = (city: string) => {
-    if (city.trim() === "") {
+  const handleFormSubmit = (city:string) => {
+    if (city === "") {
+      console.log(city)
+      // alert("entro a city")
       setShowDefaultCard(true);
       setCity("");
     } else {
       setShowDefaultCard(false);
-      setCity(city.trim());
+      setCity(city);
     }
     
   };

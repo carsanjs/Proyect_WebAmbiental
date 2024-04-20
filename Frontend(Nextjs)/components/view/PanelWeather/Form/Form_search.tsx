@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import "./index.css";
 
+
 interface FormProps {
   onFormSubmit: (city: string) => void; 
 }
@@ -8,26 +9,28 @@ interface FormProps {
 const Form: React.FC<FormProps> = ({ onFormSubmit}) => {
   const [city, setCity] = useState<string>("");
   console.log(city)
+ 
   const [loading, setLoading] = useState(false);
 
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    console.log(city)
-    e.preventDefault();
-    if(city === "") return;
-    onFormSubmit(city);
+  // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  //   console.log(city)
+  //   e.preventDefault();
+  //   if(city === "") alert("vambiental app");
+  //   onFormSubmit("");
 
-  };
-  console.log(handleSubmit)
+  // };
+  // console.log(handleSubmit)
 
 const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   setCity(e.target.value)
+  onFormSubmit(e.target.value);
 };
 
 console.log(handleChange)
   return (
     <div className="w-full container">
-      <form className=" w-full flex items-center" onSubmit={handleSubmit} method="POST">
+      <form className="w-full flex items-center" onSubmit={(e) => e.preventDefault()}>
         <div className="relative flex items-center w-full">
           <button
             className="absolute left-0 top-1/2 -translate-y-1/2"

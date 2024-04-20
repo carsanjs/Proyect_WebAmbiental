@@ -1,4 +1,3 @@
-import { ObjectId } from "mongoose";
 import { v4 as uuidv4 } from 'uuid';
 
 export default interface GetDevicesRegister {
@@ -22,7 +21,7 @@ type UUID = string;
 const device_id : UUID = uuidv4();
 
 export default interface GetDevicesSensor {
-  id: ObjectId;
-  device_id : typeof device_id ;
+  id: string;
+  id_device : typeof device_id ;
   name_device: string;
 }

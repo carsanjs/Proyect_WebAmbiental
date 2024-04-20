@@ -35,6 +35,7 @@ export default function Sensors() {
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/device/get`
         );
         setDevices(response.data);
+        console.log(response.data);
       } catch (error) {
         console.error("Error fetching classrooms:", error);
       } finally {
@@ -42,8 +43,6 @@ export default function Sensors() {
       }
     };
     fetchDevices();
-    return () => {
-    };
   }, []);
 
   const HandleSensors = async (formData: Inputs) => {

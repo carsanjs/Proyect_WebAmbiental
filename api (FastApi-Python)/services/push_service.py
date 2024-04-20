@@ -19,8 +19,7 @@ class PushNotification:
                     if umbral[0] <= temperatura <= umbral[1]:
                         menssage_ = f"{mensaje} Temperatura actual: {temperatura}°C"
                         print(menssage_)
-                        bot.enviar_mensaje_telegram(menssage_)
-                        # await sm.emit('notification', menssage_)
+                        bot.enviar_mensaje_telegram(bot.BOT_TOKEN, bot.BOT_ID_TOKEN,menssage_)
             except ValueError:
                 print("Error: La temperatura no es un número entero")
         if data.get("UV") is not None:

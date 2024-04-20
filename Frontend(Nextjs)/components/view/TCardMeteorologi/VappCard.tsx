@@ -88,9 +88,10 @@ function VappCard() {
     };
 
     fetchRoomNumbers();
-    const intervalId = setInterval(fetchData, 1000); // Actualiza cada 5 segundos
-    // Limpia el intervalo cuando el componente se desmonta para evitar fugas de memoria
-    return () => clearInterval(intervalId);
+    fetchData();
+    // const intervalId = setInterval(fetchData, 6000); 
+    
+    // return () => clearInterval(intervalId);
   }, []);
 
   const onSwipe = (direction: string, nameToDelete:number) => {
@@ -164,7 +165,6 @@ function VappCard() {
                 return deviceMatch;
               })
             );
-
             const mainSensor = roomSensors.length > 0 ? roomSensors[0] : null;
             console.log(mainSensor);
             console.log("Room sensors for room", roomNumber.number_lroom);
@@ -208,21 +208,6 @@ function VappCard() {
                       roomSensors.map((sensor, index) => (
                         // onClick={() => handleCardSmallClick(sensor)}
                         <div className="box" key={index}>
-                          <CardsSmall
-                            is_active={sensor.is_active}
-                            name_sensor={sensor.name_sensor}
-                            data={sensor.data}
-                          />
-                          <CardsSmall
-                            is_active={sensor.is_active}
-                            name_sensor={sensor.name_sensor}
-                            data={sensor.data}
-                          />
-                          <CardsSmall
-                            is_active={sensor.is_active}
-                            name_sensor={sensor.name_sensor}
-                            data={sensor.data}
-                          />
                           <CardsSmall
                             is_active={sensor.is_active}
                             name_sensor={sensor.name_sensor}
