@@ -40,7 +40,7 @@ class DeviceService:
 
         namedevice = devices.name_device
         search_lroom = await lroomService.detail(current_user, id_room)
-        if not search_lroom:
+        if search_lroom is None:
             raise HTTPException(
                 status_code=404,
                 detail="The device ID is not associated with any registered device",

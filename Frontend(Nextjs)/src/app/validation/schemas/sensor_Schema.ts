@@ -1,6 +1,7 @@
 import { z } from "zod";
 
   const isOnlyLetters = (value: string) => /^[A-Za-z0-9-]+$/.test(value);
+  const isOnlyDescription = (value: string) => /^[A-Za-z0-9_,.\s]+$/.test(value);
 export const SensorsSchema = z.object({
     device_id: z
       .string({ required_error: "Selection is required" })
@@ -18,14 +19,14 @@ export const SensorsSchema = z.object({
     .string()
     .min(5, { message: "Name must be at least 6 characters long" })
     .max(290, { message: "Name must be less than 60 characters long" })
-    .refine((value) => isOnlyLetters(value), {
+    .refine((value) => isOnlyDescription(value), {
       message: "Only letters are allowed",
     }),
-  number_lroom: z
-    .string()
-    .refine((number_lroom) => !isNaN(parseFloat(number_lroom)), {
-      message: "Age must be a number",
-    }),
+  // number_lroom: z
+  //   .string()
+  //   .refine((number_lroom) => !isNaN(parseFloat(number_lroom)), {
+  //     message: "Age must be a number",
+  //   }),
 
   size: z.string().refine(
     (value) => {

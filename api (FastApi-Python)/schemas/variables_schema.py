@@ -1,8 +1,8 @@
 TEMPERATURA_C = {
-    (35, 39): "Temperatura caliente 🌡️🌞, puede resultar incómoda.",
-    (40, 44): "Temperatura muy caliente 🥵🔥, potencialmente peligrosa.",
-    (45, 49): "Temperatura extremadamente caliente 🌡️🔥, riesgo de golpe de calor.",
-    (50, float("inf")): "Temperatura peligrosa ☠️🔥, riesgo extremo de golpe de calor.",
+    (37, 45): "Temperatura caliente 🌡️🌞, puede resultar incómoda.",
+    (53, 61): "Temperatura muy caliente 🥵🔥, potencialmente peligrosa.",
+    (69, 77): "Temperatura extremadamente caliente 🌡️🔥, riesgo de golpe de calor.",
+    (80, float("inf")): "Temperatura peligrosa ☠️🔥, riesgo extremo de golpe de calor.",
 }
 
 UV = {
@@ -39,12 +39,8 @@ UV = {
 }
 
 HUMEDAD = {
-    (45, 50): {
-        "Category": "Normal ☁️",
-        "Message": "La humedad se encuentra en un nivel normal. ☁️",
-    },
     (51, 60): {
-        "Category": "Alta 🌧️",
+        "Category": "Alta  ☁️",
         "Message": "La humedad está aumentando, puede sentirse húmedo. 🌧️",
     },
     (61, 70): {
@@ -57,62 +53,115 @@ HUMEDAD = {
     },
 }
 CO2 = {
-    (0, 400): {
-        "Category": "Normal 🌱",
+    (350, 1057): {
+        "Category": "Excelente 🌱",
         "mensaje": "Nivel de dióxido de carbono dentro de los límites normales. 🌿",
     },
-    (401, 800): {
-        "Category": "Ligera Elevación 🌿",
+    (1058, 2115): {
+        "Category": "Bueno 🌿",
         "Message": "El nivel de dióxido de carbono está ligeramente elevado. 🌿",
     },
-    (801, 1200): {
-        "Category": "Moderada Elevación 🌿",
-        "Message": "Se detecta una elevación en el nivel de dióxido de carbono. 🌿",
+    (2116, 3175): {
+        "Category": "Justo 🌿",
+        "Message": "Moderada Elevación. 🌿",
     },
-    (1201, 2000): {
+    (3176, 5592): {
         "Category": "Alta Elevación 🌿",
-        "Message": "El nivel de dióxido de carbono es alto, se recomienda ventilación inmediata. 🌿",
+        "Message": "Se recomienda una ventilacion de aire interior contaminada mediocre. 🌿",
+    },
+    (5592, 8467): {
+        "Category": "Alta Elevación 🌿",
+        "Message": "Aire interior malo y muy contamiado, ventilacion requerida. 🌿",
+    },
+    (8468, 10000): {
+        "Category": "Alta Elevación 🌿",
+        "Message": "Aire extremadamente malo y muy contamiado, ventilacion requerida.🚨",
     },
 }
-CO = {
-    (0, 5): {
-        "Category": "Normal 🍃",
+
+CALIDAD_AIRE = {
+    (10, 100): {
+        "Category": "Gas ",
         "Message": "Nivel de monóxido de carbono dentro de los límites normales. 🍃",
     },
-    (6, 10): {
+    (101, 200): {
+        "Category": "CO2 ",
+        "Message": "Nivel de monóxido de carbono dentro de los límites normales. 🍃",
+    },
+    (201, 400): {
+        "Category": "Alcohol 🍺",
+        "Message": "Se detecta una ligera elevación en el nivel de monóxido de carbono. 🌿",
+    },
+    (401, 700): {
+        "Category": "Humo",
+        "Message": "Alerta, síntomas anormales.",
+    },
+    (701, 1000): {
+        "Category": "inflamable 🔥",
+        "Message": "Se recomienda una ventilación, contaminación mediocre. 🌲",
+    },
+}
+
+
+CO = {
+    (20, 200): {
+        "Category": "Moderado 🍃",
+        "Message": "Nivel de monóxido de carbono dentro de los límites normales. 🍃",
+    },
+    (201, 400): {
         "Category": "Ligera Elevación 🌿",
         "Message": "Se detecta una ligera elevación en el nivel de monóxido de carbono. 🌿",
     },
-    (11, 15): {
+    (401, 700): {
         "Category": "Moderada Elevación 🌳",
-        "Message": "Se detecta una elevación en el nivel de monóxido de carbono. 🌳",
+        "Message": "alerta, sintomas anormales.",
     },
-    (16, 20): {
+    (701, 1100): {
         "Category": "Alta Elevación 🌲",
-        "Message": "El nivel de monóxido de carbono es alto, se recomienda ventilación inmediata. 🌲",
+        "Message": "se recomienda una ventilacion, contaminacion mediocre. 🌲",
+    },
+    (1001, 1600): {
+        "Category": "Alta Elevación 🚨",
+        "Message": "CO peligrosamente elevado, sintomas fatales.",
+    },
+    (1601, 2000): {
+        "Category": "Extremadad Elevación",
+        "Message": "hay posibilidad de muerte.",
     },
 }
 
 LLUVIA = {
     1: {
-        "Category": "Lluvia Ligera 🌧️",
+        "Category": "Despejado ⛅",
+        "Message": "No se a detectado lluvia. ",
+    },
+    0: {
+        "Category": "Lluvia Ligera. 🌧️",
         "Message": "Se ha detectado lluvia ligera. 🌧️",
-    }
-}
-
-LDR = {
-    (0, 10): {
-        "Category": "Luz Baja 🌙",
-        "Message": "La luz es tenue en este momento. 🌙",
-    },
-    (11, 50): {
-        "Category": "Luz Moderada ☀️",
-        "Message": "La luz tiene una intensidad moderada. ☀️",
-    },
-    (51, 100): {
-        "Category": "Luz Alta 💡",
-        "Message": "La luz es intensa en este momento. 💡",
     },
 }
 
-__all__ = ["LLUVIA", "LDR", "CO", "CO2", "HUMEDAD", "UV", "TEMPERATURA_C"]
+LUMINOSIDAD = {
+    (0, 19): {
+        "Category": "Muy oscuro 🌑",
+        "Message": "La luminosidad es muy baja en este momento. 🌑",
+    },
+    (20, 39): {
+        "Category": "Oscuro 🌚",
+        "Message": "La luminosidad es baja en este momento. 🌚",
+    },
+    (40, 59): {
+        "Category": "Moderadamente iluminado 🌙",
+        "Message": "La luminosidad es moderada en este momento. 🌙",
+    },
+    (60, 79): {
+        "Category": "Bien iluminado ☀️",
+        "Message": "La luminosidad es buena en este momento. ☀️",
+    },
+    (80, 100): {
+        "Category": "Muy bien iluminado 💡",
+        "Message": "La luminosidad es excelente en este momento. 💡",
+    },
+}
+
+__all__ = ["LLUVIA", "LUMINOSIDAD", "CO", "CO2", "HUMEDAD", "UV", "TEMPERATURA_C", "CALIDAD_AIRE"]

@@ -1,0 +1,22 @@
+// sensor de Iluminosidad KY018
+// sensores de temperatura y humedad DHT11 & DTH22
+// sensor de oxigeno MQ-7
+
+solo faltaria el de dioxido de carbono
+
+########procedimiento del codigo en arduino
+*******Intalamos las librerias
+$<PubSubClient.h>
+$<ESP8266WiFi.h>
+
+intalamos el dashboard del esp8266, con el siguiente link lo agregamos a las tarjetas
+https://arduino.esp8266.com/stable/package_esp8266com_index.json (ESP8266 Comiunity)
+
+instalamos la libreria del sensor dht
+$ #include <DHT.h> //DHT sensor library by Adafruit
+
+Archivos .h (archivos de encabezado): Estos archivos contienen declaraciones de funciones, variables, clases u otros elementos que se utilizarán en otros archivos de código fuente. Los archivos de encabezado suelen contener únicamente declaraciones y no definiciones de funciones o variables, a menos que sea necesario. Se incluyen en otros archivos de código utilizando la directiva #include. Los archivos de encabezado son comúnmente utilizados para definir interfaces públicas de bibliotecas o módulos, lo que permite la reutilización del código.
+
+Archivos .hpp (archivos de encabezado de C++): Estos archivos son similares a los archivos de encabezado .h, pero se utilizan específicamente en proyectos de C++ para indicar que el código contenido en ellos es código de C++. La diferencia es principalmente convencional; el uso de .hpp en lugar de .h puede ayudar a distinguir entre archivos de encabezado de C y C++ en proyectos mixtos.
+
+Archivos .ino (archivos de sketch de Arduino): Estos archivos son el punto de entrada principal en el entorno de desarrollo de Arduino. Contienen el código principal del programa y se compilan automáticamente cuando se carga en la placa Arduino. Los archivos .ino pueden contener funciones setup() y loop() obligatorias, así como cualquier otro código necesario para el proyecto. Estos archivos simplifican el proceso de desarrollo en Arduino, ya que el entorno de Arduino maneja la creación de archivos de encabezado, las declaraciones de funciones y otras tareas de configuración detrás de escena.

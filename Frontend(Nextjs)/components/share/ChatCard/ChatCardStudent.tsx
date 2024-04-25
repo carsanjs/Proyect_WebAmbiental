@@ -1,15 +1,10 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect} from "react";
 import {fetchStudents} from "@/services/axios";
 import PostRegisterStudent from "@/app/validation/Interface/Studen";
 import {formatDate} from "@/components/functions/Convert";
 import Ellipsis from "../../ui/Button/ButtonEllipsis/ButtonEllipsis";
-import Modal from "../Modal/Modal";
-import Table from "../Table/table"
-import { useRouter } from "next/navigation";
-
 
 const ChatCardStudents = () => {
-  const router = useRouter()
   const [showModal, setShowModal] = useState<boolean>(false)
   const [students, setStudents] = useState<PostRegisterStudent[]>([]);
   const [loading, setLoading] = useState(true);
@@ -44,7 +39,7 @@ const ChatCardStudents = () => {
     {loading ? ( 
       <p>Cargando estudiantes...</p>
     ) : (
-      <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+      <div className="col-span-12 overflow-x-auto rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
       
       <div className="flex justify-around">
         <h4 className="px-7.5 text-xl font-semibold text-black dark:text-white">

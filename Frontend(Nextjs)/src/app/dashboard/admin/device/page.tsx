@@ -46,8 +46,6 @@ export default function Device() {
     };
 
     fetchClassrooms();
-    return () => {
-    };
   }, []);
 
   const HandleDevice = async (formData:Inputs) => {

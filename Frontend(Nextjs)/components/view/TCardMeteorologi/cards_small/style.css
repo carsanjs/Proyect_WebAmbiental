@@ -1,43 +1,63 @@
-/* @import url('https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400,700');
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i'); */
-
 * {
   box-sizing: border-box;
 }
 
+.blue-dark {
+  color: blue;
+}
+
+.blue-light {
+  color: deepskyblue;
+}
+
+
+.blue {
+  color: blue;
+}
+
+.green {
+  color: green;
+}
+
+.green-light {
+  color: rgb(120, 186, 20);
+}
+
+.yellow-dark {
+  color: rgb(175, 175, 3);
+}
+
+.red {
+  color: rgb(224, 2, 2);
+}
+.red-dark{
+  color: rgb(96, 2, 2);
+}
+.orange {
+  color: orangered;
+}
+
+.orange-light {
+  color: rgb(255, 149, 0);
+}
+
+.yellow-light {
+  color: rgb(232, 232, 11)
+}
+
+
+/* 
+color para los simbolos como C,%, F, ppm , entre otros   color: #AD7D52;  */
 .nameky,
 .namevl {
   font-size: 10px;
 }
 
 .cards {
+  height: auto;
   width: 100% !important;
-  position: absolute;
+  position: relative !important;
 }
-
-.cards:first-child{
- grid-column: 1/2;
- grid-row: 1/2;
-}
-
-.cards:nth-child(2){
-  grid-column: 2/3;
-  grid-row: -3/-2;
- }
-
- .cards:nth-child(3){
-  grid-column: -3/-2;
-  grid-row: 2/3;
- }
- 
- .cards:nth-child(4){
-  grid-column: 2/-2;
-  grid-row: -2/-1;
- }
-
-/* .card--1 .card__img, .card--1 .card__img--hover {
-    background-image:url("https://github.com/carsanjs/ContextImage/blob/main/icons_svg%20jpg/humedad-0000.jpg");
-} */
 
 .card__img {
   visibility: hidden;
@@ -73,17 +93,27 @@
 
 }
 
+.card__info {
+  flex-grow: 1;
+}
+
 .cardsmall {
+  flex: 1;
+  /* Hace que la tarjeta ocupe todo el espacio disponible */
+  display: flex;
+  /* Para que el contenido interno pueda expandirse */
+  flex-direction: column;
   justify-items: center;
-  min-width: 40%;
   /* margin-right: 1rem; */
   transition: all .4s cubic-bezier(0.175, 0.885, 0, 1);
-  background-color: #fff;
-  width: 90%;
+  background-color: #ffffffb3;
+  /* background-color: rgba(255, 0, 0, 0.224); */
+  width: 70% !important;
+  margin: 0 auto;
   /* height: 100px; */
   border-radius: 8px;
   overflow: hidden;
-  box-shadow: 0px 13px 10px -7px rgba(0, 0, 0, 0.1);
+  box-shadow: -5px 13px 10px -5px rgba(0, 0, 0, 0.1);
 }
 
 .cardsmall:hover {
@@ -92,7 +122,6 @@
 }
 
 .card__info {
-  position: relative;
   background-color: transparent;
   padding: 0.5rem;
 }
@@ -120,18 +149,17 @@
 }
 
 ._spatgd {
-  text-align: right;
-  font-size: 10px;
+  font-size: 12px;
+  padding-left: 3px;
   font-weight: 400;
   text-decoration: none;
-  color: #333130;
 }
 
 .card__author {
   font-size: 12px;
   font-weight: 600;
   text-decoration: none;
-  color: #AD7D52;
+  color: #1c2434;
 }
 
 .cardsmall:hover .card__img--hover {

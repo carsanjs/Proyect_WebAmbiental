@@ -69,6 +69,7 @@ export function BtnDeletAllHistory ({onDeleteSuccess}:HistoryIdAll) {
 
 return(
   <button
+  type='button'
   id="clear-browsing-data"
   title="Borrar datos de exploración"
   className="c01183 c01184"

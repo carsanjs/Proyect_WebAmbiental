@@ -30,11 +30,16 @@
 }
 
 .c01172 {
-    background-color: red;
+    background-color: transparent;
     width: 80%;
     justify-content: space-between;
     display: flex;
-    margin-top: 34px;
+    margin-top: 35px;
+}
+
+button.c01183:hover{
+    background-color: rgba(155, 153, 153, 0.116);
+    opacity: 9;
 }
 
 .c01115 {
@@ -81,12 +86,11 @@
     z-index: 4;
 }
 .c01183 {
-    z-index:999 ;
-
+    z-index: 999;
     cursor: pointer;
     display: inline-flex;
     overflow: hidden;
-    width: 390px;
+    width: 100%;
     box-sizing: border-box;
     transition: all 0.1s ease-in-out;
     line-height: 1;
@@ -99,7 +103,7 @@
     border: 2px solid transparent;
     border-radius: 2px;
     min-width: 32px;
-    padding: 0 8px;
+    margin: 4px;
     height: 32px;
     color: #262626;
     fill: #262626;
@@ -244,10 +248,10 @@
 }
 
 .c011987 {
-    flex: 1;
+    width: 100px;
     height: 40px;
     display: flex;
-    min-width: 0;
+    min-width: 0px;
     align-items: center;
     user-select: none;
 }

@@ -40,42 +40,6 @@ async def get_items(current_user: Persona = Depends(get_current_user)):
     except:
         raise HTTPException(status_code=404, detail=f"User not found")
 
-
-@sensors_router.get(
-    "/history/", summary="Get history Sensors 2", response_model=List[Historydata]
-)
-async def get_history(current_user: Persona = Depends(get_current_user)):
-    try:
-        return await SensorsService.list_history(current_user)
-    except:
-        raise HTTPException(status_code=404, detail="Error getting history")
-
-
-@sensors_router.delete("/history/{id_history}", summary="Delete a history")
-async def deleteHistory(id_history: UUID):
-    try:
-        await SensorsService.delete_history(id_history)
-        return HTTPException(status_code=204)
-    except:
-        raise HTTPException(status_code=404, detail=f"history not found")
-
-
-@sensors_router.delete("/historydelete/-all", summary="Delete all history")
-async def delete_all_History(current_user: Persona = Depends(get_current_user)):
-    await check_admin_role(current_user)
-    try:
-        await SensorsService.delete_all_history(current_user)
-        return HTTPException(status_code=204)
-    except:
-        raise HTTPException(status_code=404, detail=f"Documetns not found")
-
-
-
-
-
-
-
-
 @sensors_router.get("/{id_sensor}", summary="detail of the sensors by id")
 async def detail(id_sensor: UUID, current_user: Persona = Depends(get_current_user)):
     await check_admin_role(current_user)

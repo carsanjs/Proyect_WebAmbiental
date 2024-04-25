@@ -1,6 +1,7 @@
 import { z } from "zod";
-import { isOnlyLetters } from "@/components/functions/AloneName";
 
+const isOnlyLetters = (value: string) => /^[A-Za-z0-9_\s]+$/.test(value);
+const isOnlyDescription = (value: string) => /^[A-Za-z0-9_,.\s]+$/.test(value);
 export const Devices = z.object({
   id_lroom: z
     .string({ required_error: "Selection is required" })
@@ -18,7 +19,7 @@ export const Devices = z.object({
     .string()
     .min(5, { message: "Name must be at least 6 characters long" })
     .max(127, { message: "Name must be less than 60 characters long" })
-    .refine((value) => isOnlyLetters(value), {
+    .refine((value) => isOnlyDescription(value), {
       message: "Only letters are allowed",
     }),
 

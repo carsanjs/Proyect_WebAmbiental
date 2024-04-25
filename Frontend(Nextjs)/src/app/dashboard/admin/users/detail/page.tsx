@@ -1,6 +1,6 @@
 "use client";
 import Breadcrumb from '../../../../../../components/Breadcrumb/Breadcrumb';
-import Tabla from '../../../../../../components/share/Table/table';
+import Tabla from '../../../../../../components/share/Table/Users/table';
 import { useState, useEffect} from "react";
 import { useRouter } from 'next/navigation';
 import { IoChevronBackCircleOutline } from "react-icons/io5";
@@ -27,7 +27,7 @@ export default function TablaUsers(){
       <button className="btnback" onClick={handleButtonClick}>
         <IoChevronBackCircleOutline
       /></button>
-      <Breadcrumb pageName="Chart" />
+      <Breadcrumb pageName="Tabla/Usuarios" />
       <Tabla></Tabla>
       </div>
     </>

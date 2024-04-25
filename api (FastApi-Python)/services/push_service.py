@@ -1,25 +1,37 @@
-
-from schemas.variables_schema import TEMPERATURA_C, LLUVIA, CO, CO2, HUMEDAD, LDR, UV
+from schemas.variables_schema import (
+    TEMPERATURA_C,
+    LLUVIA,
+    CO,
+    CO2,
+    HUMEDAD,
+    LUMINOSIDAD,
+    CALIDAD_AIRE,
+    UV,
+)
 from services.sensors_service import SensorsService
 from api.auth.Bases.Chat_boxTelegram import bot
 from decimal import Decimal
 from typing import Dict
 import json
 from datetime import datetime
+
+
 class PushNotification:
 
     @staticmethod
     async def push_umbral_notification(data: Dict):
 
-        if data.get("temperatura (°C)") is not None:
+        if data.get("Temperatura (°C)") is not None:
             try:
-                temperatura = Decimal(data["temperatura (°C)"])
+                temperatura = Decimal(data["Temperatura (°C)"])
                 print("temperatura", temperatura)
                 for umbral, mensaje in TEMPERATURA_C.items():
                     if umbral[0] <= temperatura <= umbral[1]:
                         menssage_ = f"{mensaje} Temperatura actual: {temperatura}°C"
                         print(menssage_)
-                        bot.enviar_mensaje_telegram(bot.BOT_TOKEN, bot.BOT_ID_TOKEN,menssage_)
+                        bot.enviar_mensaje_telegram(
+                            bot.BOT_TOKEN, bot.BOT_ID_TOKEN, menssage_
+                        )
             except ValueError:
                 print("Error: La temperatura no es un número entero")
         if data.get("UV") is not None:
@@ -38,9 +50,9 @@ class PushNotification:
             except:
                 print("Error: La Radiacion UV no es un número entero")
 
-        if data.get("humedad") is not None:
+        if data.get("Humedad") is not None:
             try:
-                humedad = int(data["humedad"])
+                humedad = int(data["Humedad"])
                 for umbral, info in HUMEDAD.items():
                     if humedad >= umbral:
                         print(
@@ -103,10 +115,10 @@ class PushNotification:
             except:
                 print("Error: la lluvia no es un número entero")
 
-        if data.get("ldr") is not None:
+        if data.get("Luminosidad") is not None:
             try:
                 ldr = int(data["ldr"])
-                for umbral, info in LDR.items():
+                for umbral, info in LUMINOSIDAD.items():
                     if ldr >= umbral:
                         print(
                             {
@@ -146,7 +158,7 @@ class PushNotification:
                     for umbral, mensaje in TEMPERATURA_C.items():
                         if umbral[0] <= temperatura <= umbral[1]:
                             message = f"{mensaje} Temperatura actual:{temperatura}°C"
-                            timestamp = timestamp 
+                            timestamp = timestamp
                             break
                 except ValueError:
                     print("Error: La temperatura no es un número decimal")
@@ -274,6 +286,7 @@ class PushNotification:
         #         print("Error: el LDR no es un número entero")
 
         return message, timestamp
+
 
 # class PushNotification:
 #     async def push_umbral_notification(data: Dict):

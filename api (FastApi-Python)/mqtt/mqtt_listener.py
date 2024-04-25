@@ -1,6 +1,5 @@
 import paho.mqtt.client as mqtt
 import json
-import base64
 import uuid 
 from fastapi_mqtt import FastMQTT, MQTTConfig
 import json
@@ -10,12 +9,12 @@ from models.Salones import LivingRoom
 from models.Sensores import Sensors
 from services.sensors_service import SensorsService
 from models.Dispositivos import Devices
-
-client_id = uuid.uuid4().hex
+from fastapi import HTTPException
+client_id = uuid.uuid4().hex #id client
 MQTT_PORT = 1883 # Puerto MQTT por defecto
 MQTT_BROKER_ADDRESS = "broker.emqx.io" # dirección IP del servidor Mosquitto
 
-TOPIC = ["Externo/Upc/MQ-135/C02", "Externo/Upc/DHT11/TH", "Externo/Upc/FC-37/Lluvia","Externo/Upc/GYML8511/UV","Salon/112/MG811/C02","Salon/112/MQ7/C0","Salon/112/DHT11/TH","Salon/112/LDR/Ldr","Salon/112/DHT21/TH"] 
+TOPIC = ["Externo/Upc/MQ-135/CO2", "Externo/Upc/DHT11/TH", "Externo/Upc/FC-37/Lluvia","Externo/Upc/GYML8511/UV","Salon/112/MG811/CO2","Salon/112/MQ7/CO","Salon/112/DHT11/TH","Salon/112/LDR/Ldr","Salon/112/DHT21/TH"] 
 
 async def mqtt_startup():
     """Initial connection for MQTT client, for lifespan startup."""
@@ -27,7 +26,7 @@ mqtt_config = MQTTConfig(
     host=MQTT_BROKER_ADDRESS,
     port=MQTT_PORT,
     keepalive=60,
-    username="admin",
+    username="pube",
     password="toor"
     )
 mqtt = FastMQTT(config=mqtt_config, client_id=client_id)
@@ -59,19 +58,24 @@ def connect(client, flags, rc, properties):
 async def message(client, topic, payload, qos, properties):
     """ The decorator method is used to subscribe to messages from all topics."""
     try:
-        data = json.loads(payload.decode('utf-8'))
-        if isinstance(data, list):
-            for obj in data:
-                json.dumps(obj, indent=4)  # Indentación para una salida legible
-        await save_sensor_data(data)
+        data = None
+        decoders = ['utf-8', 'utf-16', 'utf-32']
+        for encoding in decoders:
+            try:
+                # cleaned_payload = ''.join(char for char in encoding if char.isprintable())
+                # data = json.loads(cleaned_payload)
+                data = json.loads(payload.decode(encoding))
+                if isinstance(data, list):
+                    for obj in data:
+                        json.dumps(obj, indent=4)
+                await save_sensor_data(data)
+                break  # Si la decodificación tiene éxito, salimos del bucle
+            except UnicodeDecodeError:
+                continue  # Si la decodificación falla, intentamos con el siguiente encoding
+        if data is None:
+            raise HTTPException(status_code=400,detail="Error saving sensor data incompatible with payload",)
     except json.JSONDecodeError as e:
-        try:
-            payload.decode('utf-8')
-        except Exception as e:
-            decoded_data = base64.b64decode(payload.decode('utf-8'))
-            print(decoded_data.decode('utf-8'))
-        print("El mensaje no es un JSON válido.")
-        print("Mensaje recibido: %s" % payload.decode('utf-8'))
+        print("El mensaje no es un JSON válido.") 
     print("Mensaje recibido en el tema: %s" % topic)
     print("Publicado", str(payload))
 
@@ -96,6 +100,7 @@ async def save_sensor_data(payload):
             sensor_id = UUID(data_dict.get("sensor_id"))
             try:
                 sensor = await Sensors.find_one({"id_sensor": sensor_id})
+                
                 if sensor:
                     await PushNotification.push_umbral_notification(data_dict)
                     data_dict.pop("sensor_id", None)

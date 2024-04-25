@@ -6,22 +6,13 @@ import { useState } from "react";
 import DropdownFilter from "../../../components/share/Filter/DropdownFilter";
 
 interface FormData {
-  selectedDate: Date | null;
   sidebarOpen: boolean;
   onSelectDate: (date: Date | null) => void;
   setSidebarOpen: (arg0: boolean) => void;
 }
 
-const Header: React.FC<FormData> = ({ sidebarOpen, setSidebarOpen, selectedDate ,onSelectDate}) => {
-const [selectDate, setSelectedDate] = useState<Date | null>(selectedDate);
-console.log(selectDate)
-//   console.log(selectDate)
-console.log(selectedDate)
+const Header: React.FC<FormData> = ({ sidebarOpen, setSidebarOpen, onSelectDate}) => {
 
-const handleDateSelect = (date: Date | null) => {
-  setSelectedDate(date);
-  onSelectDate(date); 
-};
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
@@ -71,8 +62,7 @@ const handleDateSelect = (date: Date | null) => {
         <div className="w-screen justify-around items-center gap-3 2xsm:gap-7">
           <ul className="flex w-9/12 items-center gap-2 2xsm:gap-4">
             <DropdownFilter
-              selectedDate={selectDate}
-              onSelectDate={setSelectedDate}
+              onSelectDate={onSelectDate}
             />
             {/* <!-- Dark Mode Toggler --> */}
             <DarkModeSwitcher />

@@ -40,6 +40,11 @@ interface IdUser{
   id:string
   onDeleteSuccess:() => void
 }
+
+
+
+
+
 export function DeleteInvoice({id, onDeleteSuccess }:IdUser) {
   const handleDelete = async()=>{
   try {

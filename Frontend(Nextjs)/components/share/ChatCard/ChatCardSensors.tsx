@@ -3,6 +3,7 @@ import GetSensorsRegister from "../../../src/app/validation/Interface/Sensors";
 import axiosInstance, {fetchSensors} from "@/services/axios";
 import "./stylesAll.css";
 import { formatDate } from "@/components/functions/Convert";
+import Ellipsis from "../../ui/Button/ButtonEllipsis/ButtonEllipsis";
 
 const ChatCardSensors = () => {
   const [sensors, setSensors] = useState<GetSensorsRegister[]>([]);
@@ -44,10 +45,13 @@ const ChatCardSensors = () => {
   }, []);
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
-      <h4 className="mb-6 px-7.5 text-xl font-semibold text-black dark:text-white">
+    <div className="col-span-12 overflow-x-auto rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+      <div className="flex justify-around">
+        <h4 className="text-xl font-semibold text-black dark:text-white">
         Sensores Registrados
-      </h4>
+        </h4>
+        <Ellipsis to="/dashboard/admin/sensors/detail"/>
+      </div>
       <div>
         {sensors.length === 0 ? (
           <span className="cero-device text-sm px-7.5 dark:text-gray-400">

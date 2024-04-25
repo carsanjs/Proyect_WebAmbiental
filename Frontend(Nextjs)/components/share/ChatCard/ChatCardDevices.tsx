@@ -4,12 +4,8 @@ import "./stylesAll.css";
 import GetDevicesRegister from "../../../src/app/validation/Interface/Device";
 import { formatDate } from "@/components/functions/Convert";
 import Ellipsis from "../../ui/Button/ButtonEllipsis/ButtonEllipsis";
-import Modal from "../Modal/Modal";
-// import { useModal } from "@/hooks/useModal";
-import Table from "../Table/table"
 
 const ChatCardDevices = () => {
-//   const {modal,setModal} = useModal();
 const [showModal, setShowModal] = useState<boolean>(false)
 //   const abrirModal = () => {
 // console.log("click")
@@ -79,14 +75,14 @@ const [showModal, setShowModal] = useState<boolean>(false)
     setShowModal(false);
   };
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+    <div className="col-span-12 overflow-x-auto rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
       <div className="flex justify-around">
         <h4 className="px-7.5 text-xl font-semibold text-black dark:text-white">
           Dispositivos Registrados
         </h4>
-        <Ellipsis onClick={abrirModal}/>
+        <Ellipsis to="/dashboard/admin/device/detail"/>
       </div>
-      {showModal && (
+      {/* {showModal && (
         <Modal onClose={cerrarModal}
         children={
         <Table
@@ -95,7 +91,7 @@ const [showModal, setShowModal] = useState<boolean>(false)
         >
 
         </Modal>
-      )}
+      )} */}
       <div>
         {devices.length === 0 ? (
           <span className="cero-device text-sm px-7.5 dark:text-gray-400">

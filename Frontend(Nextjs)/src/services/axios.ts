@@ -14,7 +14,7 @@ export default axiosInstance;
 
 export const fetchDevices = async () => {
     try {
-      const response = await axiosInstance.get(`${baseURL}/device/get`);
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/device/get`);
       console.log(response.data);
       return response.data;
     } catch (error) {
@@ -23,6 +23,30 @@ export const fetchDevices = async () => {
     }
   };
 
+  export const fetchClassroom = async () => {
+    try {
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/livingroom/get/`);
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching classroom", error);
+      return null;
+    }
+  };
+
+  interface SensorId{
+    id_sensor:string
+  }
+  export const fetchSensorNameById = async (id: SensorId): Promise<string | null> => {
+    try {
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/sensors/${id.id_sensor}`);
+      console.log(response.data);
+      return response.data.name_sensor; 
+    } catch (error) {
+      console.error("Error fetching sensor name:", error);
+      return null;
+    }
+  };
 
   export const fetchSensors = async () => {
     try {
@@ -30,7 +54,7 @@ export const fetchDevices = async () => {
         console.log(response.data);
         return response.data;
         } catch (error) {
-         console.error("Error fetching classrooms:", error);
+         console.error("Error fetching sensors", error);
          return null;
         } 
   };
@@ -40,9 +64,7 @@ export const fetchStudents = async () => {
   
     try {
       const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/users/users/`);
-      console.log(response.data);
       return response.data;
-
     } catch (error) {
       console.error("Error fetching users:", error);
       return null;
@@ -68,7 +90,7 @@ interface IDHistory{
 
   export const DeleteAllHistory = async () => {
     try {
-  await axiosInstance.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/sensors/historydelete/-all`);
+  await axiosInstance.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/history/historydelete`);
     } catch (error) {
       console.error("Error fetching users:", error);
       return null;
@@ -77,16 +99,16 @@ interface IDHistory{
 
   export const DeleteHistoryId = async (history:IDHistory) => {
     try {
-      await axiosInstance.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/sensors/history/${history.id_history}`);
+      await axiosInstance.delete(`${process.env.NEXT_PUBLIC_BACKEND_URL}/history/delet/${history.id_history}`);
     } catch (error) {
       console.error("Error fetching users:", error);
       return null;
     }
   };
 
-export const fetchHistory = async () => {
+export const fetchHistoryDate = async (date: string | null = null) => {
     try {
-      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/sensors/history/`);
+      const response = await axiosInstance.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/history/filter/${date}`);
      console.log(response.data);
       return response.data;
   

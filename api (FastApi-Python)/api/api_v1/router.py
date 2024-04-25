@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from .handlers import user, lroom, devices, sensors, email
+from .handlers import user, lroom, devices, sensors, email, history
 from api.auth.jwt import auth_router
 
 router = APIRouter()
@@ -34,6 +34,12 @@ router.include_router(
     prefix= "/sensors",
     responses={404: {"description": "Not found"}},
     tags=["sensors"])
+
+router.include_router(
+    history.history_router,
+    prefix= "/history",
+    responses={404: {"description": "Not found"}},
+    tags=["history"])
 
 router.include_router(
     email.email_router,

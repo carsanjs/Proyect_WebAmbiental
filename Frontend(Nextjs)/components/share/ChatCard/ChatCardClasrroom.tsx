@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "@/services/axios";
 import { formatDate } from "@/components/functions/Convert";
+import Ellipsis from "../../ui/Button/ButtonEllipsis/ButtonEllipsis";
 
 interface getClassroom {
   name_lroom: string;
@@ -33,10 +34,13 @@ const ChatCardClasrroom = () => {
   }, []);
 
   return (
-    <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
-      <h4 className="mb-6 px-7.5 text-xl font-semibold text-black dark:text-white">
+    <div className="col-span-12 overflow-x-auto rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
+      <div className="flex justify-around">
+        <h4 className="text-xl font-semibold text-black dark:text-white">
         Salones Registrados
-      </h4>
+        </h4>
+        <Ellipsis to="/dashboard/admin/classroom/detail"/>
+      </div>
       <div>
       {classrooms.length === 0 ? (
           <span className="cero-device text-sm px-7.5 dark:text-gray-400">

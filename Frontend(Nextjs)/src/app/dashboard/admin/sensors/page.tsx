@@ -38,8 +38,6 @@ export default function Sensors() {
         console.log(response.data);
       } catch (error) {
         console.error("Error fetching classrooms:", error);
-      } finally {
-        setLoading(false);
       }
     };
     fetchDevices();
@@ -49,7 +47,7 @@ export default function Sensors() {
     try {
       setLoading(true);
       const response = await axiosInstance.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/device/creating/${formData.device_id}/`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/sensors/preadd/${formData.device_id}`,
         {
           name_sensor: formData.name_sensor,
           description: formData.description,
@@ -187,7 +185,7 @@ export default function Sensors() {
                       Descripción
                     </label>
                     <textarea
-                      rows={6}
+                      rows={4}
                       {...register("description")}
                       placeholder="Type your description sensor here..."
                       className={`text-left w-full rounded border-[1.5px] border-stroke bg-transparent py-3 px-5 font-medium outline-none transition focus:border-primary active:border-primary disabled:cursor-default disabled:bg-whiter dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary ${

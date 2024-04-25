@@ -8,14 +8,10 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";
 
 interface DropdownFilterProps {
-  selectedDate: Date | null;
   onSelectDate: (date: Date | null) => void;
 }
 
-const DropdownFilter = ({
-  selectedDate,
-  onSelectDate,
-}: DropdownFilterProps) => {
+const DropdownFilter = ({ onSelectDate }: DropdownFilterProps) => {
   const [value, setValue] = useState<Dayjs | null>(dayjs());
   console.log(value);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -47,8 +43,8 @@ const DropdownFilter = ({
   });
 
   const handleDateChange = (newValue: Dayjs | null) => {
-    setValue(newValue); // Actualiza el estado con la nueva fecha seleccionada
-    onSelectDate(newValue ? newValue.toDate() : null); // Llama a la función onSelectDate con la nueva fecha
+    setValue(newValue);
+    onSelectDate(newValue ? newValue.toDate() : null);
   };
 
   const handleNotificationClick = () => {
@@ -70,17 +66,15 @@ const DropdownFilter = ({
 
       <div
         ref={dropdown}
-        onFocus={() => setDropdownOpen(true)}
-        onBlur={() => setDropdownOpen(false)}
         className={`absolute -left-1 mt-2.5 p-2 flex h-23 w-80 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-60 ${
           dropdownOpen === true ? "block" : "hidden"
         }`}
       >
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["DatePicker"]}>
-            <DatePicker value={value} onChange={handleDateChange} />
-          </DemoContainer>
-        </LocalizationProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker"]}>
+              <DatePicker value={value} onChange={handleDateChange} />
+            </DemoContainer>
+          </LocalizationProvider> 
       </div>
     </li>
   );

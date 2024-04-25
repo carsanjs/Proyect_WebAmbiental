@@ -1,0 +1,84 @@
+div.c12002 div.c12202 .c12211{
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    user-select: none;
+    padding: 0;
+    color: goldenrod;
+    display: flex;
+  }
+  i svg{
+    padding:0;
+  }
+  div.c12002 div.c12202 span.message{
+    margin-left: 1rem;
+    padding-right: 1rem;
+    font-size: 1rem;
+  }
+  
+  
+  .c12002{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+  
+  /* .c12101,.c12002,.c12202 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    display: flex;
+    margin: 0;
+    padding: 0;
+} */
+  div.c12002 div.c12101,div.c12002 div.c12202{
+    align-items: center;
+    width: 100%;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  
+  div.c12002 div.c12101 h2.key-title{
+  font-size:14px;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding-left: 0.5rem;
+  outline: none;
+  margin-left: 0.5rem;
+  }
+  
+  div.c12002 div.c12101 span.key-value{
+    text-align: center;
+    color: darkorange;
+    font-size: 1rem;
+    align-items: center;
+  }
+  div.c12002 div.c12101 span.key-value i.uni-medida{
+  color: rgb(14, 16, 17);
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  
+  }
+  
+  
+  
+  .c10001{
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  display: grid;
+  }
+  
+  .c10001 .c11001{
+    width: 100%;
+  background-color: transparent;
+    padding: 5px 0 0 1rem;
+    margin: 0;
+  }
+  
+  div.c10001 div.c11001 p.js-title{
+    color:black ;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size:14px;
+  text-align: left;
+  }
