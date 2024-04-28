@@ -22,15 +22,9 @@ const ChatCardClasrroom = () => {
         setClassrooms(response.data);
       } catch (error) {
         console.error("Error fetching classrooms:", error);
-      } finally {
-        console.log("finally");
       }
-    };
-    
+    };  
     fetchClassrooms();
-    return () => {
-      // Cancela las solicitudes pendientes si es necesario
-    };
   }, []);
 
   return (

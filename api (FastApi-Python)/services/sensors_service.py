@@ -203,11 +203,8 @@ class SensorsService:
     @staticmethod
     async def list_history(current_user: Persona, date: Optional[datetime]) -> List[SensorDataHistory]:
         try:
-            if date is None :
-                raise HTTPException(
-                status_code=500, detail=f"Format Date not validated"
-            )
             date_now = date
+            print("Data_now", date_now)
             start_of_day = datetime(
                 date_now.year, date_now.month, date_now.day, 0, 0, 0
             )
@@ -217,21 +214,12 @@ class SensorsService:
             )
             print("end_of_day", end_of_day);
             all_history = await SensorDataHistory.find(
-                {"timestamp": {"$gte": start_of_day, "$lt": end_of_day}}, limit=500
+                {"timestamp": {"$gte": start_of_day, "$lt": end_of_day}}, limit=300
             ).to_list()
             filtered_history = [
                 history for history in all_history
                 if await SensorsService._history_content_sensors(current_user, history)
             ]
-            # filtered_history = []
-            # for history in all_history:
-            #     sensor = await SensorsService.get_sensors_by_id(history.sensor_id)
-            #     if sensor and sensor.creator:
-            #         creator_persona = await sensor.creator.fetch()
-            #         if creator_persona.correo == current_user.correo:
-            #             filtered_history.append(history)
-            time_ = time.time()
-            print(time_ , " ---- ", filtered_history)
             return filtered_history
         except HTTPException as e:
             raise HTTPException(status_code=500, detail=str(e))

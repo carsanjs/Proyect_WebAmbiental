@@ -147,13 +147,14 @@ function VappCard() {
       return prevCards;
     });
   };
-  const swipeCard = () => {
-    // if (roomNumberMap.length > 0) {
-    //   const [firstCard, ...restCards] = roomNumberMap;
-    //   setRoomNumberMap(restCards);
-    //   queue.enqueue(firstCard.id_lroom); // Agrega la tarjeta eliminada nuevamente a la cola
-    // }
-  };
+  // const swipeCard = () => {
+  //   const 
+  //   // if (roomNumberMap.length > 0) {
+  //   //   const [firstCard, ...restCards] = roomNumberMap;
+  //   //   setRoomNumberMap(restCards);
+  //   //   queue.enqueue(firstCard.id_lroom); // Agrega la tarjeta eliminada nuevamente a la cola
+  //   // }
+  // };
 
   const reloadCards = () => {
     fetchRoomNumbers();
@@ -220,8 +221,7 @@ function VappCard() {
                   </div>
 
                   <div className="box">
-                  
-{/* <TooltipComponent/> */}
+
                     {roomSensors.length > 0 ? (
                       roomSensors.map((sensor, index) => (
                         <CardsSmall
@@ -234,11 +234,11 @@ function VappCard() {
                       <div className="box">Nah</div>
                     )}
                   </div>
-
-                  {mainSensor ? (
+{/* 
+                  {mainSensor ? ( */}
                     <div className="_inf-d-s">
-                      {/* Filtra los dispositivos para obtener solo uno de cada dispositivo asociado al sensor principal */}
-                      {Array.from(
+                      
+                      {/* {Array.from(
                         new Set(roomSensors.map((sensor) => sensor.device_id))
                       ).map((deviceId) => {
                         const device = devices.find(
@@ -272,11 +272,11 @@ function VappCard() {
                             </div>
                           </div>
                         );
-                      })}
+                      })} */}
                     </div>
-                  ) : (
-                    <div className="_inf-d-s">Nah</div>
-                  )}
+                  {/* ) : ( */}
+                    {/* <div className="_inf-d-s">Nah</div> */}
+                  {/* )} */}
 
                   <div className="_cbtns">
                     <div className="_dcdow">
@@ -302,7 +302,7 @@ function VappCard() {
                     </div>
                     <div className="_dcplay">
                       <ButtonRR
-                        onClick={swipeCard}
+                        onClick={() => onCardLeftScreen(roomNumber.id_lroom, index)}
                         svg={
                           <svg
                             xmlns="http://www.w3.org/2000/svg"

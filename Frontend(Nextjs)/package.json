@@ -11,6 +11,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@formkit/tempo": "^0.1.1",
     "@hookform/resolvers": "^3.3.4",
     "@mui/x-date-pickers": "^7.2.0",
     "@react-spring/web": "^9.5.5",
@@ -27,7 +28,6 @@
     "clsx": "^2.1.0",
     "css-doodle": "^0.39.0",
     "dayjs": "^1.11.10",
-    "flowbite": "^2.3.0",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
@@ -45,6 +45,7 @@
     "react-slick": "^0.30.2",
     "react-tinder-card": "^1.6.4",
     "react-toastify": "^10.0.4",
+    "react-tooltip": "^5.26.3",
     "react-use-audio-player": "^2.2.0",
     "recharts": "^2.12.5",
     "slick-carousel": "^1.8.1",

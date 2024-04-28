@@ -11,38 +11,44 @@ const ChatCardSensors = () => {
     {}
   );
 
-  useEffect(() => {
-    const fetchSensorsData = async () => {
-      let sensordata = await fetchSensors();
-      if (sensordata){
-        setSensors(sensordata);
-      }
-      
-    };
+  const fetchSensorsData = async () => {
+    let sensordata = await fetchSensors();
+    if (sensordata){
+      setSensors(sensordata);
+    }
+    
+  };
 
-    const fetchDeviceName = async () => {
-      try {
-        for (const sensor of sensors) {
-          const response = await axiosInstance.get(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/device/detail/${sensor.device_id}`
-          );
-          const deviceName = response.data.name_device;
-          console.log(deviceName);
-          console.log(response.data);
-          setDeviceNameMap((prevMap) => ({
-            ...prevMap,
-            [sensor.device_id]: deviceName,
-          }));
-        }
-      } catch (error) {
-        console.error("Error fetching room numbers:", error);
+  
+
+  const fetchDeviceName = async () => {
+    try {
+      for (const sensor of sensors) {
+        const response = await axiosInstance.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/device/detail/${sensor.device_id}`
+        );
+        const deviceName = response.data.name_device;
+        console.log(deviceName);
+        console.log(response.data);
+        setDeviceNameMap((prevMap) => ({
+          ...prevMap,
+          [sensor.device_id]: deviceName,
+        }));
       }
-    };
+    } catch (error) {
+      console.error("Error fetching room numbers:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSensorsData();
+  }, []);
+  
+  useEffect(() => {
     if (sensors.length > 0) {
       fetchDeviceName();
     }
-    fetchSensorsData();
-  }, []);
+  }, [sensors]);
 
   return (
     <div className="col-span-12 overflow-x-auto rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
@@ -52,7 +58,7 @@ const ChatCardSensors = () => {
         </h4>
         <Ellipsis to="/dashboard/admin/sensors/detail"/>
       </div>
-      <div>
+      <div className="overflow-y-auto">
         {sensors.length === 0 ? (
           <span className="cero-device text-sm px-7.5 dark:text-gray-400">
             No hay sensores registrados
@@ -72,7 +78,7 @@ const ChatCardSensors = () => {
                   ></span>
                 </div>
                 <div className="flex flex-1 items-center justify-between">
-                  <div>
+                  <div className="overflow-y-auto">
                     <h5 className="text-left font-medium text-black dark:text-white">
                       Dispositivo asignado. &#8594;{" "}
                       <span>{deviceNameMap[sensor.device_id]}</span>

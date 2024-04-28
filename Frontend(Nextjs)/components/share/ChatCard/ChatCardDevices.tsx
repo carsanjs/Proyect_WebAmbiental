@@ -1,49 +1,37 @@
-import { useState, useEffect } from "react";
-import axiosInstance, {fetchDevices} from "@/services/axios";
+import { useState, useEffect, useMemo, useCallback } from "react";
+import axiosInstance, { fetchDevices } from "@/services/axios";
 import "./stylesAll.css";
 import GetDevicesRegister from "../../../src/app/validation/Interface/Device";
 import { formatDate } from "@/components/functions/Convert";
 import Ellipsis from "../../ui/Button/ButtonEllipsis/ButtonEllipsis";
 
 const ChatCardDevices = () => {
-const [showModal, setShowModal] = useState<boolean>(false)
-//   const abrirModal = () => {
-// console.log("click")
-//     setModal(true);
-//   };
-
-//   const cerrarModal = () => {
-//     setModal(false);
-//   };
-
   const [devices, setDevices] = useState<GetDevicesRegister[]>([]);
   console.log(devices);
   const [roomNumberMap, setRoomNumberMap] = useState<{ [key: string]: number }>(
     {}
   );
+  console.log(roomNumberMap);
 
-  useEffect(() => {
-    const fetchDevicesData = async () => {
-      const devicedata = await fetchDevices()
-      if(devicedata){
-        setDevices(devicedata)
-        console.log(devicedata)
+  const fetchDevicesData = async () =>{
+      try {
+        const devicedata = await fetchDevices();
+        if (devicedata) {
+          setDevices(devicedata);
+          console.log(devicedata);
+        }
+        const response = await axiosInstance.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/device/get`
+        );
+        const devicesData = response.data;
+        setDevices(devicesData);
+        console.log(devicesData);
+      } catch (error) {
+        console.error("Error fetching devices:", error);
       }
-      // try {
-      //   const response = await axiosInstance.get(
-      //     `${process.env.NEXT_PUBLIC_BACKEND_URL}/device/get`
-      //   );
-      //   const devicesData = response.data;
-      //   setDevices(devicesData);
-      //   console.log(devicesData);
-      // } catch (error) {
-      //   console.error("Error fetching classrooms:", error);
-      // } finally {
-      //   console.log("finally");
-      // }
-    };
+  }
 
-    const fetchRoomNumbers = async () => {
+  const fetchRoomNumbers = async()=>{
       try {
         for (const device of devices) {
           const response = await axiosInstance.get(
@@ -59,39 +47,34 @@ const [showModal, setShowModal] = useState<boolean>(false)
       } catch (error) {
         console.error("Error fetching room numbers:", error);
       }
-    };
-    fetchDevicesData();
-    if (devices.length > 0) {
-      fetchRoomNumbers();
-    }
-  }, [roomNumberMap]);
+  }
+
+    useEffect(() => {
+      fetchDevicesData();
+    }, []);
+    
+    useEffect(() => {
+      if (devices.length > 0) {
+        fetchRoomNumbers();
+      }
+    }, [devices]);
+
+  // useEffect(() => {
   
+  //   fetchDevicesData();
+  //   if (devices.length > 0) {
+  //     fetchRoomNumbers();
+  //   }
+  // }, []);
 
-  const abrirModal = () => {
-    setShowModal(true);
-  };
-
-  const cerrarModal = () => {
-    setShowModal(false);
-  };
   return (
     <div className="col-span-12 overflow-x-auto rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
       <div className="flex justify-around">
         <h4 className="px-7.5 text-xl font-semibold text-black dark:text-white">
           Dispositivos Registrados
         </h4>
-        <Ellipsis to="/dashboard/admin/device/detail"/>
+        <Ellipsis to="/dashboard/admin/device/detail" />
       </div>
-      {/* {showModal && (
-        <Modal onClose={cerrarModal}
-        children={
-        <Table
-        
-        />}
-        >
-
-        </Modal>
-      )} */}
       <div>
         {devices.length === 0 ? (
           <span className="cero-device text-sm px-7.5 dark:text-gray-400">
@@ -114,7 +97,10 @@ const [showModal, setShowModal] = useState<boolean>(false)
                 <div className="flex flex-1 items-center justify-between">
                   <div>
                     <h5 className="text-left font-medium text-black dark:text-white">
-                      Salon asignado. &#8594;{" "}
+                      {roomNumberMap[device.room_Assignment] < 99
+                        ? "Area asignada. "
+                        : "Salon asignado. "}
+                      &#8594;
                       <span className="text-sm text-black dark:text-white">
                         {roomNumberMap[device.room_Assignment]}
                       </span>

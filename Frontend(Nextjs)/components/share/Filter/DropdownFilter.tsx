@@ -12,7 +12,7 @@ interface DropdownFilterProps {
 }
 
 const DropdownFilter = ({ onSelectDate }: DropdownFilterProps) => {
-  const [value, setValue] = useState<Dayjs | null>(dayjs());
+  const [value, setValue] = useState<Dayjs | null>(dayjs().startOf('day'));
   console.log(value);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef<any>(null);
@@ -43,6 +43,12 @@ const DropdownFilter = ({ onSelectDate }: DropdownFilterProps) => {
   });
 
   const handleDateChange = (newValue: Dayjs | null) => {
+    // if (newValue) {
+    //   newValue = newValue.subtract(1, 'day');
+    // }
+    // setValue(newValue);
+    // onSelectDate(newValue ? newValue.toDate() : null);
+    // newValue ? newValue = newValue.subtract(1,'day')
     setValue(newValue);
     onSelectDate(newValue ? newValue.toDate() : null);
   };

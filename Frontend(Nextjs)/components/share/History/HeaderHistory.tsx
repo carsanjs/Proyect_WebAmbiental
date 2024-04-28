@@ -1,8 +1,5 @@
-import Link from "next/link";
 import DarkModeSwitcher from "../DarkModeSwitcher";
 import DropdownNotification from "../DropdownNotification";
-import DropdownUser from "../DropdownUser";
-import { useState } from "react";
 import DropdownFilter from "../../../components/share/Filter/DropdownFilter";
 
 interface FormData {

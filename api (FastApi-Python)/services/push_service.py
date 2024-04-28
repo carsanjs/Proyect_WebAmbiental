@@ -21,9 +21,9 @@ class PushNotification:
     @staticmethod
     async def push_umbral_notification(data: Dict):
 
-        if data.get("Temperatura (°C)") is not None:
+        if data.get("Temperatura") is not None:
             try:
-                temperatura = Decimal(data["Temperatura (°C)"])
+                temperatura = Decimal(data["Temperatura"])
                 print("temperatura", temperatura)
                 for umbral, mensaje in TEMPERATURA_C.items():
                     if umbral[0] <= temperatura <= umbral[1]:
@@ -67,7 +67,7 @@ class PushNotification:
             except:
                 print("Error: La humedad no es un número entero")
 
-        if data.get("CO2 (ppm)") is not None:
+        if data.get("CO2") is not None:
             try:
                 co2 = int(data["CO2 (ppm)"])
                 for umbral, info in CO2.items():
@@ -83,7 +83,7 @@ class PushNotification:
             except:
                 print("Error: el CO2 no es un número entero")
 
-        if data.get("CO (ppm)") is not None:
+        if data.get("CO") is not None:
             try:
                 co = int(data["CO (ppm)"])
                 for umbral, info in CO.items():
@@ -99,7 +99,7 @@ class PushNotification:
             except:
                 print("Error: el CO no es un número entero")
 
-        if data.get("lluvia") is not None:
+        if data.get("Lluvia") is not None:
             try:
                 lluvia = int(data["lluvia"])
                 for umbral, info in LLUVIA.items():

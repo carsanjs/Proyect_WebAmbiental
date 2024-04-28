@@ -3,17 +3,15 @@ import Breadcrumb from "../../../../../components/Breadcrumb/Breadcrumb";
 import BtnDeletHistory from "../../../../../components/share/History/BtnDeletHistory";
 import Header from "../../../../../components/share/History/HeaderHistory";
 import { useEffect, useState } from "react";
-import DropdownFilter from "../../../../../components/share/Filter/DropdownFilter";
 import { fetchHistoryDate, fetchSensorNameById } from "@/services/axios";
 import "./style.css";
 import { formatDateToLocal } from "@/components/functions/getFecha";
 import { GrHistory } from "react-icons/gr";
-import { GiEmptyHourglass } from "react-icons/gi";
 import { BtnDeletAllHistory } from "../../../../../components/share/History/BtnDeletHistory";
 import CsvDownloadButton from "react-json-to-csv";
 import { IoReloadCircleOutline } from "react-icons/io5";
-import { Suspense, useTransition } from "react";
-import HistoryReload from "../../../../../components/sckeletos/dashboard/historyreload";
+import { format } from "@formkit/tempo";
+import Historyreload from "../../../../../components/sckeletos/dashboard/historyreload";
 interface Data {
   [key: string]: string;
 }
@@ -26,36 +24,17 @@ interface History {
 }
 
 export default function TablaUsers() {
+  const [isloading, setIsloading] = useState<boolean>(false);
   const [history, setHistory] = useState<History[]>([]);
+  console.log(history);
   const [sensorname, setSensorName] = useState<{ [key: string]: string }>({});
   console.log(sensorname);
-
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-
-  useEffect(() => {
-    const handlehistory = async () => {
-      try {
-        if (selectedDate !== null) {
-          const currentDate = new Date(selectedDate);
-          console.log(selectedDate);
-          const selectedDate_ = currentDate.toISOString().replace("T", " ");
-          const response = await fetchHistoryDate(selectedDate_);
-          setHistory(response);
-        }
-      } catch (error) {
-        console.error("Error fetching History:", error);
-        setHistory([]);
-      }
-    };
-    handlehistory();
-  }, [selectedDate]);
-
-  // const handleReloadHistory = () => {
-  //   handlehistory();
-  // };
+  console.log(selectedDate);
   const handleSensorId = async (id_sensor: string) => {
     try {
-      const name = await fetchSensorNameById({ id_sensor });
+      const name = await fetchSensorNameById({ id_sensor: id_sensor });
+      console.log(name);
       if (name) {
         setSensorName((prevNames) => ({ ...prevNames, [id_sensor]: name }));
       } else {
@@ -66,33 +45,48 @@ export default function TablaUsers() {
     }
   };
 
-  useEffect(() => {
-    history.forEach((item) => {
-      const id_sensor = item.sensor_id;
-      if (!sensorname[id_sensor]) {
-        handleSensorId(id_sensor);
-      }
-    });
-  }, []);
+  history.forEach((item) => {
+    const id_sensor = item.sensor_id;
+    console.log(id_sensor);
+    if (!sensorname[id_sensor]) {
+      handleSensorId(id_sensor);
+    }
+  });
 
-  // useEffect(() => {
-  //   // Filtrar los datos cuando la fecha seleccionada cambie
-  //   if (selectedDate) {
-  //     console.log(selectedDate);
-  //     const filteredData = history.filter((item) => {
-  //       const entryDate = new Date(item.timestamp);
-  //       console.log(entryDate);
-  //       let filter_ = entryDate.toDateString() === selectedDate.toDateString();
-  //       console.log(filter_);
-  //       return filter_;
-  //     });
-  //     setFilteredHistory(filteredData);
-  //   } else {
-  //     // Si no hay fecha seleccionada, mostrar todos los datos
-  //     setFilteredHistory(history);
-  //   }
-  //   // selectedDate, history
-  // }, [selectedDate, history]);
+
+  const handlehistory = async () => {
+    try {
+      let currentDate;
+      let selectedDateISO;
+      if (selectedDate != null) {
+        currentDate = new Date(selectedDate);
+        selectedDateISO = currentDate.toISOString().replace("T", " ");
+      } 
+      else {
+        let l = "en";
+        currentDate = new Date();
+        selectedDateISO = format(currentDate, "YYYY-MM-DDTHH:mm:ssZ", l);
+
+      }
+      const response = await fetchHistoryDate(selectedDateISO);
+      setHistory(response);
+
+      setIsloading(true);
+    } catch (error) {
+      console.error("Error fetching History:", error);
+      setHistory([]);
+      setIsloading(false);
+    }
+  };
+
+  useEffect(() => {
+    handlehistory();
+  }, [selectedDate]);
+
+  const handleReloadHistory = () => {
+    handlehistory();
+  };
+
   const handleDeleteSuccess = () => {
     console.log("deleting");
   };
@@ -135,15 +129,12 @@ export default function TablaUsers() {
             <div className="conthistory">
               <div className="c01170" aria-label="Todos" role="region">
                 <div className="c01171">
-                  <h2
-                    className="c01110 c01115 c01101 c01106 c01160"
-                    // onClick={handleReloadHistory}
-                  >
-                    Todos{" "}
-                    <i className="items-center text-center">
-                      <IoReloadCircleOutline />
+                  <div className="flex">
+                    <h2 className="c01110 c01115 c01101 c01106">Todos </h2>{" "}
+                    <i className="iflex">
+                      <IoReloadCircleOutline className="icons-iflex" />
                     </i>
-                  </h2>
+                  </div>
 
                   <div className="c01172 sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
                     <ExportButton />
@@ -155,8 +146,6 @@ export default function TablaUsers() {
           </div>
         </div>
 
-        {/* comienza content  */}
-
         <div role="presentation" className="presetacion_">
           <h3
             id="sectionHeader_0"
@@ -164,105 +153,82 @@ export default function TablaUsers() {
           >
             Recientes
           </h3>
-          <div id="history-card-0" className="c011979">
-            {/* {filteredHistory && filteredHistory.length === 0 && selectedDate && (
-              <div className="c012004 c011981">
-                <div role="option" className="c011984">
-                  <div className="c012005 c012002" aria-hidden="true">
-                    <GiEmptyHourglass />
-                  </div>
-                  <div className="c011987"></div>
-                  <div className="c011995">
-                    <p className="bg-red500 flex">
-                      No hay resultados para la fecha selecionada.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )} */}
-            {!selectedDate && history === null || history.length === 0 && (
-              <div>
-              {history === null ? (  <p className="text-red-500">No hay registro de historial</p>):( <p className="text-red-500">
-                  No hay resultados para la fecha selecionada.
-                </p>)}
-              </div>
-            )}
 
-            {/* {selectedDate && history && history.length === 0 && (
+          <div id="history-card-0" className="c011979">
+           {selectedDate && history.length === 0 && isloading &&  (
               <div>
-                {" "}
                 <p className="text-red-500">
                   No hay resultados para la fecha selecionada.
                 </p>
               </div>
-            )} */}
-            {/* aqui mapeo el history */}
+            )}
 
+              {!selectedDate && history.length === 0 && isloading &&(
+              <div>
+                <p className="text-red-500">No hay registro de datos</p>
+              </div>
+            )} 
             <>
-              {history != null && history.length > 0 && (
-                  history.map((key, index) => (
-                    <div className="c012004 c011981" key={index}>
-                      <div role="option" className="c011984">
-                        <div className="c012005 c012002" aria-hidden="true">
-                          <GrHistory />
-                        </div>
-                        <div className="c011985" aria-hidden="true">
-                          {/* el siguiente dic contiene una imagen */}
-                          <div className="c011986"></div>
-                        </div>
-                        <div className="c011987">
-                          <a
-                            className="c0112637 card_clickable_title"
-                            target="_self"
-                            dir="auto"
-                            rel="noreferrer"
-                          >
-                            {sensorname[key.sensor_id]}
-                          </a>
-                        </div>
-                        <div className="c011995">
-                          <p className="c0112639 flex">
-                            {Object.entries(key.data).map(
-                              ([key, value], index) => {
-                                const [attribute, temperature] = key.split(":");
-                                return (
-                                  <>
-                                    <p className="pr-1 pl-1">{key} </p>
-                                    <p
-                                      key={index}
-                                      className={`${
-                                        parseInt(value) >= 35
-                                          ? "text-red-500"
-                                          : ""
-                                      }`}
-                                    >
-                                      {value}
-                                    </p>
-                                  </>
-                                );
-                              }
-                            )}
-                          </p>
-                          <div className="cont2pre">
-                            <p className="c0112644" dir="auto">
-                              {formatDateToLocal(key.timestamp)}
-                            </p>
-                          </div>
-                        </div>
-                        <BtnDeletHistory
-                          id={key.id_history}
-                          onDeleteSuccess={handleDeleteSuccess}
-                        />
+              {history != null && isloading ? (
+                history.map((key, index) => (
+                  <div className="c012004 c011981" key={index}>
+                    <div role="option" className="c011984">
+                      <div className="c012005 c012002" aria-hidden="true">
+                        <GrHistory />
                       </div>
+                      <div className="c011985" aria-hidden="true"></div>
+                      <div className="c011987">
+                        <a
+                          className="c0112637 card_clickable_title"
+                          target="_self"
+                          dir="auto"
+                          rel="noreferrer"
+                        >
+                          {sensorname[key.sensor_id]}
+                        </a>
+                      </div>
+                      <div className="c011995">
+                        <p className="c0112639 flex">
+                          {Object.entries(key.data).map(
+                            ([key, value], index) => {
+                              const [attribute, temperature] = key.split(":");
+                              return (
+                                <>
+                                  <p className="pr-1 pl-1">{key} </p>
+                                  <p
+                                    key={index}
+                                    className={`${
+                                      parseInt(value) >= 35
+                                        ? "text-red-500"
+                                        : ""
+                                    }`}
+                                  >
+                                    {value}
+                                  </p>
+                                </>
+                              );
+                            }
+                          )}
+                        </p>
+                        <div className="cont2pre">
+                          <p className="c0112644" dir="auto">
+                            {formatDateToLocal(key.timestamp)}
+                          </p>
+                        </div>
+                      </div>
+                      <BtnDeletHistory
+                        id={key.id_history}
+                        onDeleteSuccess={handleDeleteSuccess}
+                      />
                     </div>
-                  ))
-                )
-              }
+                  </div>
+                ))
+              ) : (
+                <Historyreload />
+              )}
             </>
           </div>
         </div>
-
-        {/* finaliza content  */}
       </div>
     </>
   );

@@ -36,6 +36,13 @@
     display: flex;
     margin-top: 35px;
 }
+.c011733 {
+    background-color: transparent;
+    width: 50%;
+    justify-content: space-evenly;
+    display: flex;
+    margin-top: 35px;
+}
 
 button.c01183:hover{
     background-color: rgba(155, 153, 153, 0.116);
@@ -48,12 +55,27 @@ button.c01183:hover{
 }
 
 .c01110 {
-    margin-top: 0;
+    margin-top: 40px;
     transition: all 0.2s ease-in-out;
     margin-bottom: 0;
     color: #262626;
 }
-
+.iflex{
+    display: flex;
+    margin-top: 43px;
+    margin-left: 0.5rem;
+    flex-direction: column;
+}
+.icons-iflex{
+    width: 25px;
+    height: 25px;
+}
+.icons-iflex:hover{
+    transition: cubic-bezier(1, 0, 0, 1);
+    background-color:#1c2434 ;
+    color: #F7F7F7;
+    border-radius: 50%;
+}
 .c01160 {
     margin: 0;
     z-index: 4;

@@ -1,0 +1,155 @@
+.calibuena {
+    background-color: #116530;
+}
+
+tr.uvalta,
+.co2moderada,
+.comediocre,
+.calidamediocre {
+    background-color: #FF9800;
+}
+
+.orange-light{
+  color: #FF9800;
+}
+
+tr.uvmuyalto {
+    background-color: #C51605;
+}
+.red{
+  color:#C51605 ;
+}
+tr.uvextremo {
+    background-color: #85116c;
+}
+.pink{
+  color: #85116c;
+}
+tr.lluvitrue,
+.lumibaja,
+.temfrio {
+    background-color: #1e96fc;
+}
+
+.blue-light{
+  color: #1e96fc;
+}
+tr.llviafalse,
+.co2buena,
+.temcalido,
+.comoderado,
+.lumimuyalta,
+.uvmoderadas {
+    background-color: #ffff3f;
+}
+.yellow-light{
+  color: #ffff3f;
+}
+.yellow-dark{
+  color: #ffda33;
+}
+.yellow-lightD{
+  color: #f1f14b;
+}
+
+tr.co2exce,
+.lumimoderada,
+.cobuena,
+.caliexcelente,
+.temfresco,.uvbajs {
+    background-color: #55a630;
+}
+.green-light{
+  color: #55a630;
+}
+tr.co2mala,
+.comalo,
+.calimalo,
+.temextemo {
+    background-color: #fa442a;
+}
+.orange-dark{
+  color: #fa442a;
+}
+tr.co2peligrosa,
+.coextramalo,
+.calidaextramalo {
+    background-color: #710000;
+}
+
+.red-dark{
+  color:#710000 ;
+}
+
+tr.luminobaja,
+.temmuyfrio {
+    background-color: #003566;
+}
+.blue-dark{color: #003566;}
+
+tr.lumialta,
+.conormal,
+.calidnormal,
+.temcaluroso {
+    background-color: #ffda33;
+}
+.write-dark{
+  color: #f2f2f2;
+}
+.write-dark, .texttableumbral{
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 10px;
+}
+.texttableumbral{
+  color: black;
+}
+
+.table-container {
+  position: absolute;
+  z-index: 9898;
+  }
+  th{
+    text-align: center;
+  }
+  th:first-child{
+    color:#f2f2f2;
+    background-color:#1c2434;
+  }
+  th:nth-child(2){
+    color:#f2f2f2;
+    background-color: #1c2434;
+  }
+  th:nth-child(3){
+    color:#f2f2f2;
+    background-color: #1c2434;
+  }
+  th:nth-child(4){
+    color:#f2f2f2;
+    background-color: #1c2434;
+  }
+  
+  /* .write{
+    font-size: 12px;
+    color:#ddd;
+  }
+  table {
+    width: auto;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border:none;
+    padding: 8px;
+    text-align: center;
+  }
+  td{
+    font-size: 10px;
+  }
+  
+  tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #fff;
+  } */
