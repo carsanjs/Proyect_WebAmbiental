@@ -12,7 +12,7 @@ interface DropdownFilterProps {
 }
 
 const DropdownFilter = ({ onSelectDate }: DropdownFilterProps) => {
-  const [value, setValue] = useState<Dayjs | null>(dayjs().startOf('day'));
+  const [value, setValue] = useState<Dayjs | null>(dayjs().startOf("day"));
   console.log(value);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const trigger = useRef<any>(null);
@@ -43,12 +43,6 @@ const DropdownFilter = ({ onSelectDate }: DropdownFilterProps) => {
   });
 
   const handleDateChange = (newValue: Dayjs | null) => {
-    // if (newValue) {
-    //   newValue = newValue.subtract(1, 'day');
-    // }
-    // setValue(newValue);
-    // onSelectDate(newValue ? newValue.toDate() : null);
-    // newValue ? newValue = newValue.subtract(1,'day')
     setValue(newValue);
     onSelectDate(newValue ? newValue.toDate() : null);
   };
@@ -57,32 +51,27 @@ const DropdownFilter = ({ onSelectDate }: DropdownFilterProps) => {
     setDropdownOpen(!dropdownOpen);
   };
   return (
-    <li
-      className="sticky top-0 z-999 flex w-full bg-white dark:bg-boxdark dark:drop-shadow-none"
-      x-data="{ dropdownOpen: false, notifying: true }"
-    >
-      <Link
-        ref={trigger}
-        onClick={handleNotificationClick}
-        href="#"
-        className="relative flex h-8.5 w-8.5 items-center justify-center rounded-full border-[0.5px] border-stroke bg-gray hover:text-primary dark:border-strokedark dark:bg-meta-4 dark:text-white"
-      >
-        <CiFilter />
-      </Link>
+    // <li className="flex w-full bg-white dark:bg-boxdark dark:drop-shadow-none">
+    //   <Link
+    //     ref={trigger}
+    //     onClick={handleNotificationClick}
+    //     href="#"
+    //     className="relative flex h-8.5 w-8.5 items-center justify-center rounded-full border-[0.5px] border-stroke bg-gray hover:text-primary dark:border-strokedark dark:bg-meta-4 dark:text-white"
+    //   >
+    //     <CiFilter />
+    //   </Link>
 
-      <div
-        ref={dropdown}
-        className={`absolute -left-1 mt-2.5 p-2 flex h-23 w-80 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-60 ${
-          dropdownOpen === true ? "block" : "hidden"
-        }`}
-      >
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={["DatePicker"]}>
-              <DatePicker value={value} onChange={handleDateChange} />
-            </DemoContainer>
-          </LocalizationProvider> 
-      </div>
-    </li>
+      // <div
+      //   ref={dropdown}
+      //   className={`mt-2.5 p-2 flex h-23 w-80 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark sm:right-0 sm:w-60`}
+      // >
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DemoContainer components={["DatePicker"]}>
+            <DatePicker value={value} onChange={handleDateChange} />
+          </DemoContainer>
+        </LocalizationProvider>
+      // </div>
+    // </li>
   );
 };
 

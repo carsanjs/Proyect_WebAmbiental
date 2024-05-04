@@ -154,8 +154,6 @@ export function CalidadAire(){
   )
 }
 
-
-
 export function CO2(){
   return(
       <div className="table-container">
@@ -305,7 +303,6 @@ export function Dht21(){
   )
 }
 
-
 export function LLuvia(){
   return(
       <div className="table-container">
@@ -331,5 +328,62 @@ export function LLuvia(){
       </table>
     </div>
 
+  )
+}
+
+export function Ds18b20(){
+  return(
+
+<div className="table-container">
+<table>
+  <thead>
+  <tr>
+      <th >Temperatura (°C)</th>
+      <th >Indice</th>
+      <th>Recomendación</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr className="write temmuyfrio">
+      <td className="texttableumbral"> &lt; 10</td>
+      <td className="texttableumbral">EXT. BAJA</td>
+      <td className="texttableumbral">Nublado, muy frio.</td> 
+    </tr>
+    <tr  className="temfrio">
+      <td className="texttableumbral">10 A 14</td>
+      <td className="texttableumbral">MUY BAJA</td>
+      <td className="texttableumbral">Parcialmente nublado.</td>
+     
+    </tr>
+    <tr className="write temfresco">
+      <td className="texttableumbral">15 A 19</td>
+      <td className="texttableumbral">BAJA</td>
+      <td className="texttableumbral">Ambiente muy agradable.</td>
+    </tr>
+    <tr className="write temcalido">
+      <td className="texttableumbral">20 A 24</td>
+      <td className="texttableumbral">NORMAL</td>
+      <td className="texttableumbral">Ambiente muy agradable.</td>
+    </tr> 
+     <tr className="write temcaluroso">
+      <td className="texttableumbral">25 A 29</td>
+      <td className="texttableumbral">MODERADA</td>
+      <td className="texttableumbral">Ambiente agradable.</td>
+    </tr> 
+     <tr className="write temextemo">
+      <td className="write-dark">30 A 35</td>
+      <td className="write-dark">ALTA</td>
+      <td className="write-dark">Ambiente calido.
+      </td>
+    </tr> 
+    <tr className="write ds18b20">
+      <td className="write-dark"> &gt; 40 </td>
+      <td className="write-dark">MUY ALTA</td>
+      <td className="write-dark">Ambiente muy caluroso.
+      </td>
+    </tr> 
+  </tbody>
+</table>
+</div>
   )
 }

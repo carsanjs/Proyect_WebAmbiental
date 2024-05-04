@@ -14,18 +14,13 @@ interface GetSensor {
   size: string;
 }
 
-
 export default async function InvoicesTable() {
   const [isloading, setIsloading] = useState<boolean>(false);
-
   const [invoices, setInvoices] = useState<GetSensor[]>([]);
-  console.log(invoices)
- 
- 
+
   const fectInvoices = async () => {
     let response = await fetchSensors();
     setInvoices(response);
-    console.log(response);
   };
 
   useEffect(() => {
@@ -45,12 +40,12 @@ export default async function InvoicesTable() {
       {isloading ? (
         <div>cargando tabla...</div>
       ) : (
-        <div className='className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4"'>
+        <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
           <div className="mt-6 flow-root">
             <div className="inline-block min-w-full align-middle">
               <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
                 <div className="md:hidden">
-                  {invoices?.map((invoice) => (
+                  {invoices.map((invoice) => (
                     <div
                       key={invoice.id_sensor}
                       className="mb-2 w-full rounded-md bg-white p-4"
@@ -69,7 +64,6 @@ export default async function InvoicesTable() {
                       <div className="flex w-full items-center justify-between pt-4">
                         <div></div>
                         <div className="flex justify-end gap-2">
-                          <UpdateInvoice id={invoice.id_sensor} />
                           <DeleteInvoice id={invoice.id_sensor} onDeleteSuccess={handleDeleteSuccess}/>
                         </div>
                       </div>

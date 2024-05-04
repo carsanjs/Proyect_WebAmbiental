@@ -5,9 +5,9 @@ import {
   CO2,
   UV,
   Dht21,
-  LLuvia,
+  LLuvia,Ds18b20
 } from "./TableUmbral"; // Importa tus componentes aquí
-import { FC, ReactNode } from "react";
+import { ReactNode } from "react";
 
 interface Sensor {
   id: string;
@@ -15,6 +15,7 @@ interface Sensor {
 }
 
 export const sensorComponentes: Sensor[] = [
+  { id: "07b1bdee-70e9-45c2-89ff-7857874512da", componente: <Ds18b20/> },
   { id: "1a91c5a3-ae04-4e3f-a488-e297d6118a75", componente: <CO/> },
   { id: "1b4c16e8-ccd1-4091-a567-1c71ad8ef2e5", componente: <Iluminacion/> },
   { id: "3b3f06d9-bff0-48db-95a9-ad31b312798a", componente: <CalidadAire/>},

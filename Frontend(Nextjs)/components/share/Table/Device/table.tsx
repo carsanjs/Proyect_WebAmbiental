@@ -47,7 +47,7 @@ export default async function InvoicesTable() {
       {isloading ? (
         <div>cargando tabla...</div>
       ) : (
-        <div className='className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4"'>
+        <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
           <div className="mt-6 flow-root">
             <div className="inline-block min-w-full align-middle">
               <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
@@ -71,7 +71,6 @@ export default async function InvoicesTable() {
                       <div className="flex w-full items-center justify-between pt-4">
                         <div></div>
                         <div className="flex justify-end gap-2">
-                          <UpdateInvoice id={invoice.id_device} />
                           <DeleteInvoice id={invoice.id_device} onDeleteSuccess={handleDeleteSuccess}/>
                         </div>
                       </div>
@@ -133,7 +132,6 @@ export default async function InvoicesTable() {
                         </td>
                         <td className="whitespace-nowrap py-3 pl-6 pr-3">
                           <div className="flex justify-between gap-3">
-                            <UpdateInvoice id={invoice.id_device} />
                             <DeleteInvoice id={invoice.id_device} onDeleteSuccess={handleDeleteSuccess}/>
                           </div>
                         </td>

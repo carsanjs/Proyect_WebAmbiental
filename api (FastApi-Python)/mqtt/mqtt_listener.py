@@ -2,19 +2,14 @@ import paho.mqtt.client as mqtt
 import json
 import uuid 
 from fastapi_mqtt import FastMQTT, MQTTConfig
-import json
 from uuid import UUID
-from services.push_service import PushNotification
-from models.Salones import LivingRoom
-from models.Sensores import Sensors
 from services.sensors_service import SensorsService
-from models.Dispositivos import Devices
 from fastapi import HTTPException
 client_id = uuid.uuid4().hex #id client
 MQTT_PORT = 1883 # Puerto MQTT por defecto
 MQTT_BROKER_ADDRESS = "broker.emqx.io" # dirección IP del servidor Mosquitto
 
-TOPIC = ["Externo/Upc/MQ-135/CO2", "Externo/Upc/DHT11/TH", "Externo/Upc/FC-37/Lluvia","Externo/Upc/GYML8511/UV","Salon/112/MG811/CO2","Salon/112/MQ7/CO","Salon/112/DHT11/TH","Salon/112/LDR/Ldr","Salon/112/DHT21/TH"] 
+TOPIC = ["Externo/Upc/MQ-135/CO2", "Externo/Upc/DHT11/TH", "Externo/Upc/FC-37/Lluvia","Externo/Upc/GYML8511/UV","Salon/112/MG811/CO2","Salon/112/MQ7/CO","Salon/112/DHT11/TH","Salon/112/LDR/Ldr","Salon/112/DHT21/TH", "Externo/Upc/Ds18b20/ds"] 
 
 async def mqtt_startup():
     """Initial connection for MQTT client, for lifespan startup."""
@@ -68,7 +63,7 @@ async def message(client, topic, payload, qos, properties):
                 if isinstance(data, list):
                     for obj in data:
                         json.dumps(obj, indent=4)
-                await save_sensor_data(data)
+                await SensorsService.save_sensor_data(data)
                 break  # Si la decodificación tiene éxito, salimos del bucle
             except UnicodeDecodeError:
                 continue  # Si la decodificación falla, intentamos con el siguiente encoding
@@ -88,68 +83,5 @@ async def mqtt_shutdown():
     """Final disconnection for MQTT client, for lifespan shutdown."""
     await mqtt.on_disconnect()
 
-async def save_sensor_data(payload):
-    try:
-            if isinstance(payload, bytes):
-                data = payload.decode()
-            elif isinstance(payload, dict):
-                data = json.dumps(payload)
-            else:
-                data = str(payload)
-            data_dict = json.loads(data)
-            sensor_id = UUID(data_dict.get("sensor_id"))
-            try:
-                sensor = await Sensors.find_one({"id_sensor": sensor_id})
-                
-                if sensor:
-                    await PushNotification.push_umbral_notification(data_dict)
-                    data_dict.pop("sensor_id", None)
-                    await sensor.update({"$set": {"data": data_dict}})
-                    await sensor.save()
-                    await SensorsService.inset_history(sensor_id, data_dict)
-                    device_id = sensor.device_id
-                    try:
-                        devices = await Devices.find_one({"id_device": device_id})
-                        sensor_data = sensor.data  # Obtener los datos del sensor
-                        if devices:
-                            name_sensor = f"Sensor_{sensor.name_sensor}"
-                            await devices.update(
-                                {
-                                    "$set": {
-                                        "sensors." + name_sensor + ".data": sensor_data
-                                    }
-                                }
-                            )
-                            await devices.save()
-                            lroom_id = devices.room_Assignment
-                            try:
-                                lroom = await LivingRoom.find_one(
-                                    {"id_lroom": lroom_id}
-                                )
-                                if lroom:
-                                    name_device_ = f"Device_{devices.name_device}"
-                                    await lroom.update(
-                                        {
-                                            "$set": {
-                                                f"inf_device.{name_device_}.sensors.{name_sensor}.data": sensor_data
-                                            }
-                                        }
-                                    )
-                                    await lroom.save()
-                                else:
-                                    print("No se encontró el lroom asociado al device.")
-                            except Exception as e:
-                                print(
-                                    f"El device no tiene un ID de lroom asociado. {e}"
-                                )
-                        else:
-                            print("No se encontró el dispositivo asociado al sensor.")
-                    except Exception as e:
-                        print(f"El sensor no tiene un ID de dispositivo asociado. {e}")
-                else:
-                    print(f"Sensor with id {sensor_id} not found.")
-            except Exception as e:
-                print(f"Error saving data to MongoDB: {e}")
-    except Exception as e:
-        print(f"Error processing sensor data: {e}")
+
 

@@ -5,7 +5,6 @@ import Sidebar from "../../../../components/share/Sidebar";
 import Loader from "../../../../components/ui/Loader";
 import { ToastContainer } from "react-toastify";
 import { AuthProvider, AuthContext } from "../../../context/JWTAuthContext";
-import { SocketProvider } from "../../../context/SocketContext";
 // import { ModalProvider } from "../../../context/ModalContext";
 import { Authenticated } from "../../../../components/authenticated/Authenticated";
 
@@ -15,7 +14,6 @@ export default function Page() {
   return (
     <AuthProvider>
 {/* <ModalProvider> */}
-      <SocketProvider>
         <AuthContext.Consumer>
           {(auth) =>
             !auth.isInitialized ? (
@@ -39,8 +37,6 @@ export default function Page() {
             )
           }
         </AuthContext.Consumer>
-      </SocketProvider>
-      {/* </ModalProvider> */}
     </AuthProvider>
   );
 }

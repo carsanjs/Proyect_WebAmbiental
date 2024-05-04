@@ -1,5 +1,5 @@
 import DarkModeSwitcher from "../DarkModeSwitcher";
-import DropdownNotification from "../DropdownNotification";
+import DropdownUser from "../DropdownUser";
 import DropdownFilter from "../../../components/share/Filter/DropdownFilter";
 
 interface FormData {
@@ -8,11 +8,14 @@ interface FormData {
   setSidebarOpen: (arg0: boolean) => void;
 }
 
-const Header: React.FC<FormData> = ({ sidebarOpen, setSidebarOpen, onSelectDate}) => {
-
+const Header: React.FC<FormData> = ({
+  sidebarOpen,
+  setSidebarOpen,
+  onSelectDate,
+}) => {
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
-      <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
+      <div className="flex justify-end flex-grow items-center w-full px-4 py-4 shadow-2 md:px-6 2xl:px-11">
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           {/* <!-- Hamburger Toggle BTN --> */}
           <button
@@ -56,19 +59,18 @@ const Header: React.FC<FormData> = ({ sidebarOpen, setSidebarOpen, onSelectDate}
             </span>
           </button>
         </div>
-        <div className="w-screen justify-around items-center gap-3 2xsm:gap-7">
-          <ul className="flex w-9/12 items-center gap-2 2xsm:gap-4">
-            <DropdownFilter
-              onSelectDate={onSelectDate}
-            />
-            {/* <!-- Dark Mode Toggler --> */}
+        {/* <div className="w-4/12 hidden sm:block"> */}
+        <DropdownFilter onSelectDate={onSelectDate} />
+        {/* </div>     */}
+        <div className="flex items-center gap-3 2xsm:gap-7">
+          <ul className="flex items-center gap-2 2xsm:gap-4">
             <DarkModeSwitcher />
-            {/* <!-- Dark Mode Toggler --> */}
-
-            {/* <!-- Notification Menu Area --> */}
-            <DropdownNotification />
-            {/* <!-- Notification Menu Area --> */}
           </ul>
+          {/* <div className="w-4/12 hidden sm:block"> */}
+          
+          {/* </div> */}
+
+          <DropdownUser />
         </div>
       </div>
     </header>

@@ -33,7 +33,23 @@ export class CircularQueue<T> {
       this.size--;
       return element;
     }
-  
+    rotate(count: number) {
+      if (count > 0) {
+        for (let i = 0; i < count; i++) {
+          const temp = this.dequeue();
+          if (temp !== undefined) {
+            this.enqueue(temp);
+          }
+        }
+      } else if (count < 0) {
+        for (let i = 0; i < Math.abs(count); i++) {
+          const temp = this.dequeue();
+          if (temp !== undefined) {
+            this.enqueue(temp);
+          }
+        }
+      }
+    }
     peek(): T | undefined {
       if (this.isEmpty()) {
         throw new Error("La cola está vacía");
@@ -52,7 +68,16 @@ export class CircularQueue<T> {
     getSize(): number {
       return this.size;
     }
-  
+    findIndex(predicate: (element: T) => boolean): number {
+      let index = -1;
+      for (let i = 0; i < this.size; i++) {
+          if (predicate(this.queue[i])) {
+              index = i;
+              break;
+          }
+      }
+      return index;
+  }
     print(): void {
       if (this.isEmpty()) {
         console.log("La cola está vacía");

@@ -1,6 +1,6 @@
 "use client";
 import WeatherPanel from "../../../../../components/view/PanelWeather/WeatherPanel";
-import { useState ,FormEvent} from "react";
+import { useState} from "react";
 import VappCard from "../../../../../components/view/TCardMeteorologi/VappCard";
 import Header from "../../../../../components/share/Header";
 
@@ -11,8 +11,6 @@ const Page = () => {
 
   const handleFormSubmit = (city:string) => {
     if (city === "") {
-      console.log(city)
-      // alert("entro a city")
       setShowDefaultCard(true);
       setCity("");
     } else {

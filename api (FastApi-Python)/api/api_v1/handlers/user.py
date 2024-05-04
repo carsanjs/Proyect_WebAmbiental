@@ -10,6 +10,7 @@ from uuid import UUID
 from pydantic import EmailStr
 user_router = APIRouter()
 
+
 @user_router.post("/register/", summary="Add new user ✔", response_model=UserDetail, status_code=202, response_model_exclude_unset = True,
 response_model_exclude_none= True,)
 async def creating_user(User: UserAuth):

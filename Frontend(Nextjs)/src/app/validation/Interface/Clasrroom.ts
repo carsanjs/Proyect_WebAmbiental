@@ -1,12 +1,12 @@
-import { ObjectId } from "mongoose";
+
 import { v4 as uuidv4 } from 'uuid';
 
 type UUID = string;
 const id_lroom: UUID = uuidv4();
 
 export default interface GetClassroomDevice {
-  id: ObjectId;
-  id_lroom: typeof id_lroom;
+  // id: ObjectId;
+  id_lroom: string;
   number_lroom: number;
 }
 

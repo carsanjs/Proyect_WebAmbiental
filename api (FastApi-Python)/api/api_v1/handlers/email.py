@@ -6,23 +6,6 @@ from datetime import datetime
 
 email_router = APIRouter()
 
-# @email_router.post("/verify/", summary="verifi email ✔")
-# async def request_verify_email(correo:EmailStr = Body(..., embed=True)) -> Response:
-#     """Send the user a verification email."""
-#     user = await Persona.by_correo(correo)
-#     nombre = user.nombre
-#     if user is None:
-#         raise HTTPException(404, "No user found with that email")  
-  
-#     token = access_security.create_access_token(subject=user.jwt_subject)
-#     await send_verification_email(correo, token, nombre)
-#     return Response(status_code=200)
-#     # except:
-#     #     raise HTTPException(
-#     #         status_code=500,
-#     #         detail="xxxxxxxxxxxxx",
-#     #     )
-
 @email_router.get("/verify/{token}", summary="get token verify ✔")
 async def verify_email(token: str) -> Response:
     """Verify the user's email with the supplied token."""

@@ -1,7 +1,7 @@
 from fastapi import HTTPException, status, Depends
 from models.Salones import LivingRoom
 from api.dependencies.user_deps import get_current_user
-from typing import Dict, Optional, List
+from typing import  Optional, List,Union
 from uuid import UUID
 from schemas.lroom_schema import LroomInput,LroomUpdate, LroomInfDeviceUpdate
 import pymongo
@@ -52,12 +52,45 @@ class lroomService:
     
     """✔"""
     @staticmethod
-    async def detail(user:Persona,id_lroom:UUID):
+    async def detail(user:Persona,id_lroom:UUID) -> Optional[LivingRoom]:
       all_detail = await LivingRoom.find_one(LivingRoom.id_lroom == id_lroom, LivingRoom.creator.id == user.id)
       if all_detail is None: raise HTTPException(status_code=404,detail=f"Living Room with ID {id_lroom} not found for user {user.user_id}")
-      print("all detail detail", all_detail.model_dump())
       return all_detail
     
+    @staticmethod
+    async def filter_lroom(name_or_number: Union[str, int], user: Persona) -> Optional[LivingRoom]:
+       query = {}
+       if isinstance(name_or_number, str):
+        query["$or"] = [{"name_lroom": name_or_number}]
+       elif isinstance(name_or_number, int):
+        query["$or"] = [{"number_lroom": name_or_number}]
+       else:
+            raise ValueError("Invalid type for name_or_number parameter")
+       detail_lroom = await LivingRoom.find_one(query)
+       if detail_lroom is None: 
+           raise HTTPException(status_code=404, detail=f"Living Room with name or number {name_or_number} not found for user {user.user_id}")
+       return detail_lroom
+
+    @staticmethod
+    async def detail_lroom_name(name:str,user:Persona)-> Optional[LivingRoom]:
+      detail_name = await LivingRoom.find_one(LivingRoom.name_lroom == name)
+      print(detail_name)
+      if detail_name is None: 
+          raise HTTPException(status_code=404,detail=f"Living Room with name {name} not found for user {user.user_id}")
+      return detail_name
+    
+    @staticmethod
+    async def get_lroom_by_name(name_lroom: str) -> Optional[LivingRoom]:
+        lroom = await LivingRoom.find_one(LivingRoom.name_lroom == name_lroom)
+        return lroom
+    
+    @staticmethod
+    async def detail_lroom_number(number:int,user:Persona):
+      detail_number = await LivingRoom.find_one(LivingRoom.number_lroom == number, LivingRoom.creator.id == user.id)
+      if detail_number is None: 
+          raise HTTPException(status_code=404,detail=f"Living Room with number {number} not found for user {user.user_id}")
+      return detail_number
+
     @staticmethod
     async def update_inf_device(user:Persona, dv_key:str, data:LroomInfDeviceUpdate):
         try:
@@ -112,12 +145,8 @@ class lroomService:
              return None
         except HTTPException as exc:
             return exc
-
-    @staticmethod
-    async def get_lroom_by_name(name_lroom: str) -> Optional[LivingRoom]:
-        lroom = await LivingRoom.find_one(LivingRoom.name_lroom == name_lroom)
-        return lroom
-
+    
+    """✔"""
     @staticmethod
     async def get_lroom_by_id(id: UUID) -> Optional[LivingRoom]:
         lroom = await LivingRoom.find_one(LivingRoom.id_lroom == id)

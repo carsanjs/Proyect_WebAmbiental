@@ -2,17 +2,20 @@ from schemas.sensors_schema import SensorSent, SensorUpdate
 from api.dependencies.user_deps import get_current_user
 from services.devices_service import DeviceService
 from services.lroom_service import lroomService
-from models.History import SensorDataHistory
-from services.user_service import UserService
 from fastapi import HTTPException, Depends
-from typing import Dict, Optional, List
 from models.Sensores import Sensors
 from models.Persona import Persona
-from datetime import datetime, timedelta
+from datetime import datetime
 from uuid import UUID
 import pymongo
 import beanie
-import time
+from models.History import SensorDataHistory
+from fastapi import HTTPException
+from typing import Dict, Optional, List
+import json
+from models.Dispositivos import Devices
+from models.Salones import LivingRoom
+from services.push_service import PushNotification
 
 
 class SensorsService:
@@ -131,6 +134,24 @@ class SensorsService:
             return exc
 
     @staticmethod
+    async def namelroom_telegram(id: UUID):
+        try:
+            sensorid = await Sensors.find_one(Sensors.id_sensor == id)
+            if sensorid:
+                deviceasocie = sensorid.device_id
+                device = await Devices.find_one(Devices.id_device == deviceasocie)
+                if device:
+                    devicemodel = device.room_Assignment
+                    lroom = await LivingRoom.find_one({"id_lroom": devicemodel})
+                    if lroom:
+                        return lroom.name_lroom
+        except HTTPException:
+            raise HTTPException(
+                status_code=404,
+                detail=f"{id} sensor not associated a classroom",
+            )
+
+    @staticmethod
     async def get_sensors_by_id(id_sensor: UUID) -> Sensors:
         try:
             sensor = await Sensors.find_one(Sensors.id_sensor == id_sensor)
@@ -140,7 +161,7 @@ class SensorsService:
                 status_code=404,
                 detail=f"sensor with ID {id_sensor} not found",
             )
-
+    
     @staticmethod
     async def inset_history(id_sensor: UUID, data: Dict) -> SensorDataHistory:
         try:
@@ -204,18 +225,16 @@ class SensorsService:
     async def list_history(current_user: Persona, date: Optional[datetime]) -> List[SensorDataHistory]:
         try:
             date_now = date
-            print("Data_now", date_now)
             start_of_day = datetime(
                 date_now.year, date_now.month, date_now.day, 0, 0, 0
             )
-            print("start_of_day", start_of_day);
             end_of_day = datetime(
                 date_now.year, date_now.month, date_now.day, 23, 59, 59
             )
-            print("end_of_day", end_of_day);
             all_history = await SensorDataHistory.find(
                 {"timestamp": {"$gte": start_of_day, "$lt": end_of_day}}, limit=300
             ).to_list()
+            
             filtered_history = [
                 history for history in all_history
                 if await SensorsService._history_content_sensors(current_user, history)
@@ -223,3 +242,73 @@ class SensorsService:
             return filtered_history
         except HTTPException as e:
             raise HTTPException(status_code=500, detail=str(e))
+        
+    @staticmethod
+    async def save_sensor_data(payload):
+        try:
+            if isinstance(payload, bytes):
+                data = payload.decode()
+            elif isinstance(payload, dict):
+                data = json.dumps(payload)
+            else:
+                data = str(payload)
+            data_dict = json.loads(data)
+            sensor_id = UUID(data_dict.get("sensor_id"))
+            namelroom: str = await SensorsService.namelroom_telegram(sensor_id)
+            print("name type classroom", type(namelroom))
+            print("name --->", namelroom)
+            try:
+                sensor = await Sensors.find_one({"id_sensor": sensor_id})
+                if sensor:
+                    await PushNotification.push_umbral_notification(
+                        namelroom, data_dict
+                    )
+                    data_dict.pop("sensor_id", None)
+                    await sensor.update({"$set": {"data": data_dict}})
+                    await sensor.save()
+                    await SensorsService.inset_history(sensor_id, data_dict)
+                    device_id = sensor.device_id
+                    try:
+                        devices = await Devices.find_one({"id_device": device_id})
+                        sensor_data = sensor.data  # Obtener los datos del sensor
+                        if devices:
+                            name_sensor = f"Sensor_{sensor.name_sensor}"
+                            await devices.update(
+                                {
+                                    "$set": {
+                                        "sensors." + name_sensor + ".data": sensor_data
+                                    }
+                                }
+                            )
+                            await devices.save()
+                            lroom_id = devices.room_Assignment
+                            try:
+                                lroom = await LivingRoom.find_one(
+                                    {"id_lroom": lroom_id}
+                                )
+                                if lroom:
+                                    name_device_ = f"Device_{devices.name_device}"
+                                    await lroom.update(
+                                        {
+                                            "$set": {
+                                                f"inf_device.{name_device_}.sensors.{name_sensor}.data": sensor_data
+                                            }
+                                        }
+                                    )
+                                    await lroom.save()
+                                else:
+                                    print("No se encontró el lroom asociado al device.")
+                            except Exception as e:
+                                print(
+                                    f"El device no tiene un ID de lroom asociado. {e}"
+                                )
+                        else:
+                            print("No se encontró el dispositivo asociado al sensor.")
+                    except Exception as e:
+                        print(f"El sensor no tiene un ID de dispositivo asociado. {e}")
+                else:
+                    print(f"Sensor with id {sensor_id} not found.")
+            except Exception as e:
+                print(f"Error saving data to MongoDB: {e}")
+        except Exception as e:
+            print(f"Error processing sensor data: {e}")

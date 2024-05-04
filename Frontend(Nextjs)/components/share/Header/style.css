@@ -1,4 +1,3 @@
 .divHC{
-    width: 73%;
-    max-width: 73%;
+    min-width: 81%;
 }

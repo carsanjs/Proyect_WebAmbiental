@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import DarkModeSwitcher from '../DarkModeSwitcher';
-import DropdownNotification from '../DropdownNotification';
 import DropdownUser from '../DropdownUser';
 import "./style.css"
 interface FormData {
@@ -61,7 +60,6 @@ const Header: React.FC<FormData>= ({sidebarOpen, setSidebarOpen}) => {
         <div className="flex items-center gap-3 2xsm:gap-7">
           <ul className="flex items-center gap-2 2xsm:gap-4">
             <DarkModeSwitcher />
-            <DropdownNotification />
           </ul>
           <DropdownUser />
         </div>

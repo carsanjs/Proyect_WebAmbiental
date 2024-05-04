@@ -64,6 +64,13 @@ footer.site-footer{padding:0.5rem;}
 .site-footer div.container{
   background-color: #fff;
 }
+
+/* @media (min-width: 360px) and (max-width:760){
+  .container-search-filter{
+    display: none;
+  }
+} */
+
 .col-md-8.col-sm-6.col-xs-12 {
   padding-top: 20px;
 }

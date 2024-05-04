@@ -46,8 +46,6 @@ class DeviceService:
                 detail="The device ID is not associated with any registered device",
             )
         new_index_key = f"Device_{namedevice}"
-        # obtener_inf_device = len(obtener_inf_device)
-
         try:
             new_devices = Devices(
                 **devices.model_dump(),
@@ -64,12 +62,6 @@ class DeviceService:
             await search_lroom.update({"$set": {"inf_device": search_lroom.inf_device}})
             await search_lroom.save()
             await DeviceService.updateCountDevice(current_user)
-            # await DeviceService.update_device(dict_obj, id_room)
-
-            # if search_lroom.inf_device.get(new_index_key):
-            #     search_lroom.inf_device[new_index_key]['sensors'] = sensor_data
-            #     await search_lroom.save()
-
             return new_devices
         except Exception as e:
             raise HTTPException(

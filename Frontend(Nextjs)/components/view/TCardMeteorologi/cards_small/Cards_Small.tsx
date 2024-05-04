@@ -2,7 +2,7 @@
 import "./tooltip.css";
 import { BsFillInfoCircleFill } from "react-icons/bs";
 import redondearNumero from "@/components/functions/RedondearNumber";
-import { obtenerClaseDeEstilo } from "./UmbralesMedicion/umbrales";
+import { obtenerClaseDeEstilo } from "./UmbralesMedicion/umbralesColor";
 import { MEDICIONES } from "./UmbralesMedicion/mediciones";
 import { TooltipTitle } from "./Tooltip/Tooltip";
 import { sensorComponentes } from "./TableUmbral/ContentUmbral";
@@ -63,18 +63,6 @@ const CardsSmall: React.FC<CardsSmallProps> = ({ id_sensor, data }) => {
                           </TooltipTitle>
                         )
                       ))}
-                      {/* {
-                        <TooltipTitle
-                          tooltip={[
-                            {
-                              id: id_sensor,
-                              component: <CO />,
-                            },
-                          ]}
-                        >
-                          <BsFillInfoCircleFill className="icon-tooltip" />
-                        </TooltipTitle>
-                      } */}
                     </td>
                   </tr>
                 </tbody>

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, Depends
 from services.sensors_service import SensorsService
-from schemas.sensors_schema import SensorsDetail, SensorSent, SensorUpdate, Historydata
+from schemas.sensors_schema import Historydata
 from models.Persona import Persona
 from typing import List
 from uuid import UUID

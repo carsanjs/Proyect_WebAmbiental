@@ -26,15 +26,13 @@ interface History {
 export default function TablaUsers() {
   const [isloading, setIsloading] = useState<boolean>(false);
   const [history, setHistory] = useState<History[]>([]);
-  console.log(history);
   const [sensorname, setSensorName] = useState<{ [key: string]: string }>({});
-  console.log(sensorname);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  console.log(selectedDate);
+
+
   const handleSensorId = async (id_sensor: string) => {
     try {
       const name = await fetchSensorNameById({ id_sensor: id_sensor });
-      console.log(name);
       if (name) {
         setSensorName((prevNames) => ({ ...prevNames, [id_sensor]: name }));
       } else {
@@ -47,7 +45,6 @@ export default function TablaUsers() {
 
   history.forEach((item) => {
     const id_sensor = item.sensor_id;
-    console.log(id_sensor);
     if (!sensorname[id_sensor]) {
       handleSensorId(id_sensor);
     }
@@ -73,7 +70,6 @@ export default function TablaUsers() {
 
       setIsloading(true);
     } catch (error) {
-      console.error("Error fetching History:", error);
       setHistory([]);
       setIsloading(false);
     }
@@ -88,8 +84,9 @@ export default function TablaUsers() {
   };
 
   const handleDeleteSuccess = () => {
-    console.log("deleting");
+    handlehistory();
   };
+
   const handleDateSelect = (date: Date | null) => {
     setSelectedDate(date);
   };
@@ -130,7 +127,7 @@ export default function TablaUsers() {
               <div className="c01170" aria-label="Todos" role="region">
                 <div className="c01171">
                   <div className="flex">
-                    <h2 className="c01110 c01115 c01101 c01106">Todos </h2>{" "}
+                    <h2 className="c01110 c01115 c01101 c01106 dark:text-white">Todos </h2>{" "}
                     <i className="iflex">
                       <IoReloadCircleOutline className="icons-iflex" />
                     </i>
@@ -149,7 +146,7 @@ export default function TablaUsers() {
         <div role="presentation" className="presetacion_">
           <h3
             id="sectionHeader_0"
-            className="text-left c011969 c011976 c011961 c011966 c017"
+            className="text-left c011969 c011976 c011961 c011966 c017 dark:text-white"
           >
             Recientes
           </h3>
@@ -157,7 +154,7 @@ export default function TablaUsers() {
           <div id="history-card-0" className="c011979">
            {selectedDate && history.length === 0 && isloading &&  (
               <div>
-                <p className="text-red-500">
+                <p className="text-red-500 dark:text-white">
                   No hay resultados para la fecha selecionada.
                 </p>
               </div>
@@ -165,7 +162,7 @@ export default function TablaUsers() {
 
               {!selectedDate && history.length === 0 && isloading &&(
               <div>
-                <p className="text-red-500">No hay registro de datos</p>
+                <p className="text-red-500 dark:text-white">No hay registro de datos</p>
               </div>
             )} 
             <>

@@ -1,5 +1,5 @@
 // components/Button.tsx
-import React, { ButtonHTMLAttributes } from 'react';
+import React, { ButtonHTMLAttributes,useState } from 'react';
 import './style.css';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -22,20 +22,24 @@ const Button: React.FC<ButtonProps> = ({
   ctClass,
   ...rest
 }) => {
+
   const DefaulClass = 'btn';
   const NameClass = className ? `${className}` : 'undefine';
   const btn = `${DefaulClass} ${NameClass}`;
 
   return (
+    
+    <>
       <button 
       type={type} 
       className={btn} 
-      onClick={onClick} 
+      onClick={onClick}
       {...rest}
       >
         {icon}
         {title}
       </button>
+      </>
   );
 };
 

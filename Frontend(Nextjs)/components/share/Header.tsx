@@ -1,9 +1,6 @@
-import Link from 'next/link';
 import DarkModeSwitcher from './DarkModeSwitcher';
-import DropdownNotification from './DropdownNotification';
 import DropdownUser from './DropdownUser';
-import Form_rearch from '../view/PanelWeather/Form/Form_search';
-import { useState } from 'react';
+import Form_rearch from '../view/PanelWeather/Form/FormOpenWeather/Form_search';
 
 interface FormData {
   onFormSubmit: (city: string) => void;
@@ -69,17 +66,9 @@ const Header: React.FC<FormData>= ({sidebarOpen, setSidebarOpen, onFormSubmit}) 
         </div>    
         <div className="flex items-center gap-3 2xsm:gap-7">
           <ul className="flex items-center gap-2 2xsm:gap-4">
-           {/* <!-- Dark Mode Toggler --> */}
            <DarkModeSwitcher />
-            {/* <!-- Dark Mode Toggler --> */}
-
-           {/* <!-- Notification Menu Area --> */}
-           <DropdownNotification />
-            {/* <!-- Notification Menu Area --> */}
           </ul>
-        {/* <!-- User Area --> */}
           <DropdownUser />
-          {/* <!-- User Area --> */}
         </div>
       </div>
     </header>

@@ -24,6 +24,7 @@ export default function Signin() {
   const onSubmit = async (values: FormValues) => {
     const { username, password } = values;
     try {
+      setIsLoading(true);
       await login({ username, password });
       if (user) {
         // Redirige al usuario después de iniciar sesión según su rol
@@ -37,6 +38,8 @@ export default function Signin() {
       }
     } catch (error) {
       toast.error("Login failed" + errors);
+    }finally {
+      setIsLoading(false);
     }
   };
 
@@ -98,8 +101,9 @@ export default function Signin() {
               <Button
                 size="large"
                 className="btnA"
-                title="Iniciar Sesión"
+                title={isLoading ? "Cargando..." : "Iniciar Sesión"}
                 type="submit"
+                disabled={isLoading}
               ></Button>
             </div>
             <div className="u-form-group">

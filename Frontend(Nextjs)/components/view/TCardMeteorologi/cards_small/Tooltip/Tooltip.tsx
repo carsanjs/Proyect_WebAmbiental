@@ -22,7 +22,7 @@ export const TooltipTitle: FC<Props> = ({ children, tooltip }): JSX.Element => {
         if (!tooltipRef.current || !container.current) return;
         const { left } = container.current.getBoundingClientRect();
         console.log(left)
-        let constvalue = tooltipRef.current.style.left=(clientX - left) - 250 + "px";
+        let constvalue = tooltipRef.current.style.left=(clientX - left) - 50 + "px";
         let constvalue2 = tooltipRef.current.style.top=(clientX - left) - 50 + "px";
         console.log(constvalue)
         console.log(constvalue2)
